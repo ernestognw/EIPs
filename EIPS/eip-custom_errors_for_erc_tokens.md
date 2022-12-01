@@ -38,7 +38,6 @@ It's important to note that errors MAY be thrown in each scenario, but that's up
 This EIP aims to provide a clear standard only in case an error will be thrown.
 
 ```solidity
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 /// @title Standard ERC20 Errors
@@ -47,28 +46,19 @@ pragma solidity ^0.8.4;
 interface ERC20Errors {
     /// @notice Indicates a failure with the token sender.
     /// @param _sender The address of whose tokens are transferred from.
-    /// @dev Throw when the cause of failure is the sender in a transfer.
-    ///  MUST NOT be thrown for approval operations.
-    ///  MUST NOT be thrown for balance or allowance requirements.
-    ///     Use `ERC20InsufficientBalance` or `ERC20InsufficientAllowance` instead.
-    ///  MUST be thrown for unintended transfers from the zero address.
+    /// @dev See [case reference](#erc20invalidsender).
     error ERC20InvalidSender(address _sender);
 
     /// @notice Indicates a failure with the token receiver.
     /// @param _receiver The address of whose tokens are transferred to.
-    /// @dev Throw when the cause of failure is the receiver in a transfer.
-    ///  MUST NOT be thrown for approval operations.
-    ///  MUST be thrown for unintended transfers to the zero address.
-    ///  MUST be thrown for unintended transfers to non-compatible addresses (eg. contract addresses).
+    /// @dev See [case reference](#erc20invalidreceiver).
     error ERC20InvalidReceiver(address _receiver);
 
     /// @notice Indicates an error related to the current `_balance` of a sender in a transfer.
     /// @param _sender The address of whose tokens are transferred from.
     /// @param _balance The current amount of token the sender has.
     /// @param _needed The amount of token the sender needs to perform the operation.
-    /// @dev Throw when the cause of failure is the balance of a sender.
-    ///  MUST NOT be thrown if `_balance` is equal or greater than `_needed`.
-    ///  MUST be thrown when `_balance` is less than `_needed`.
+    /// @dev See [case reference](#erc20insufficientbalance).
     error ERC20InsufficientBalance(
         address _sender,
         uint256 _balance,
@@ -77,27 +67,19 @@ interface ERC20Errors {
 
     /// @notice Indicates a failure with the `_approver` of a token to be approved.
     /// @param _approver The owner's of the tokens to be approved.
-    /// @dev Throw when the cause of failure is the owner of the tokens to be approved.
-    ///  MUST NOT be thrown for transfer operations.
-    ///  MUST be thrown for unintended approvals from the zero address.
+    /// @dev See [case reference](#erc20invalidapprover).
     error ERC20InvalidApprover(address _approver);
 
     /// @notice Indicates a failure with the `_spender` to be approved.
     /// @param _spender The address of who's getting owner's approval.
-    /// @dev Throw when the cause of failure is the spender to be approved.
-    ///  MUST NOT be thrown for transfer operations.
-    ///     Use `ERC20InsufficientAllowance` instead.
-    ///  MUST be thrown for unintended approvals to the zero address.
-    ///  MUST be thrown for unintended approvals to the owner itself.
+    /// @dev See [case reference](#erc20invalidspender).
     error ERC20InvalidSpender(address _spender);
 
     /// @notice Indicates a failure with the `_spender`'s `_allowance` in a transfer.
     /// @param _spender The address of who's spending the tokens.
     /// @param _allowance The current amount of tokens a spender can use.
     /// @param _needed The allowance needed to perform the operation.
-    /// @dev Throw when the cause of failure is the spender's allowance.
-    ///  MUST NOT be thrown if `_allowance` is equal or greater than `_needed`.
-    ///  MUST be thrown when `_allowance` is less than `_needed`.
+    /// @dev See [case reference](#erc20insufficientallowance).
     error ERC20InsufficientAllowance(
         address _spender,
         uint256 _allowance,
@@ -111,53 +93,34 @@ interface ERC20Errors {
 interface ERC721Errors {
     /// @notice Indicates a failure with the token sender.
     /// @param _sender The address of whose token is transferred from.
-    /// @dev Throw when the cause of failure is the sender in a transfer.
-    ///  MUST NOT be thrown for approval operations.
-    ///  MUST NOT be thrown for ownership or approval requirements.
-    ///     Use `ERC721InvalidOwner` or `ERC721InsufficientApproval` instead.
-    ///  MUST be thrown for unintended transfers from the zero address.
+    /// @dev See [case reference](#erc721invalidsender).
     error ERC721InvalidSender(address _sender);
 
     /// @notice Indicates a failure with the token receiver.
     /// @param _receiver The address of whose token is transferred to.
-    /// @dev Throw when the cause of failure is the receiver in a transfer.
-    ///  MUST NOT be thrown for approval operations.
-    ///  MUST be thrown for unintended transfers to the zero address.
-    ///  MUST be thrown for unintended transfers to non-ERC721TokenReceiver contracts
-    ///     or those that reject a transfer.
-    ///     (eg. returning an invalid response in `onERC721Received`)
+    /// @dev See [case reference](#erc721invalidreceiver).
     error ERC721InvalidReceiver(address _receiver);
 
     /// @notice Indicates an error related to the ownership over a particular token.
     /// @param _sender The address of whose token is transferred from.
     /// @param _tokenId The id of the token to be transferred.
-    /// @dev Throw when the cause of failure is the ownership of a token.
-    ///  MUST NOT be thrown for approval operations.
-    ///  MUST be thrown when `ownerOf(_tokenId)` is not `_sender`.
+    /// @dev See [case reference](#erc721invalidowner).
     error ERC721InvalidOwner(address _sender, uint256 _tokenId);
 
     /// @notice Indicates a failure with the `_owner` of a token to be approved.
     /// @param _approver The owner's of the token to be approved.
-    /// @dev Throw when the cause of failure is the owner of the tokens to be approved.
-    ///  MUST NOT be thrown for transfer operations.
-    ///  MUST be thrown for unintended approvals from the zero address.
+    /// @dev See [case reference](#erc721invalidapprover).
     error ERC721InvalidApprover(address _approver);
 
     /// @notice Indicates a failure with the `_operator` to be approved.
     /// @param _operator The address of who's getting owner's approval.
-    /// @dev Throw when the cause of failure is the spender to be approved.
-    ///  MUST NOT be thrown for transfer operations.
-    ///     Use `ERC721InsufficientApproval` instead.
-    ///  MUST be thrown for unintended approvals to the zero address.
-    ///  MUST be thrown for unintended approvals to the owner itself.
+    /// @dev See [case reference](#erc721invalidoperator).
     error ERC721InvalidOperator(address _operator);
 
     /// @notice Indicates a failure with the `_operator`'s approval in a transfer.
     /// @param _operator The address of who's transferring a token.
     /// @param _tokenId The token to be transferred.
-    /// @dev Throw when the cause of failure is the operator's approval.
-    ///  MUST be thrown when operator `isApprovedForAll(_owner, _operator)` is false
-    ///  MUST be thrown when operator `getApproved(_tokenId)` is not `_operator`
+    /// @dev See [case reference](#erc721invalidoperator).
     error ERC721InsufficientApproval(address _operator, uint256 _tokenId);
 }
 
@@ -167,21 +130,12 @@ interface ERC721Errors {
 interface ERC1155Errors {
     /// @notice Indicates a failure with the token sender.
     /// @param _sender The address of whose tokens are transferred from.
-    /// @dev Throw when the cause of failure is the sender in a transfer.
-    ///  MUST NOT be thrown for approval operations.
-    ///  MUST NOT be thrown for balance or allowance requirements.
-    ///     Use `ERC1155InsufficientBalance` or `ERC1155InsufficientApproval` instead.
-    ///  MUST be thrown for unintended transfers from the zero address.
+    /// @dev See [case reference](#erc1155invalidsender).
     error ERC1155InvalidSender(address _sender);
 
     /// @notice Indicates a failure with the token receiver.
     /// @param _receiver The address of whose tokens are transferred to.
-    /// @dev Throw when the cause of failure is the receiver in a transfer.
-    ///  MUST NOT be thrown for approval operations.
-    ///  MUST be thrown for unintended transfers to the zero address.
-    ///  MUST be thrown for unintended transfers to non-ERC1155TokenReceiver contracts
-    ///     or those that reject a transfer.
-    ///     (eg. returning an invalid response in `onERC1155Received`)
+    /// @dev See [case reference](#erc1155invalidreceiver).
     error ERC1155InvalidReceiver(address _receiver);
 
     /// @notice Indicates an error related to the current `_balance` of a sender in a transfer.
@@ -189,9 +143,7 @@ interface ERC1155Errors {
     /// @param _balance The current amount of token the sender has.
     /// @param _needed The amount of token the sender needs to perform the operation.
     /// @param _id The id of the token.
-    /// @dev Throw when the cause of failure is the balance of a sender.
-    ///  MUST NOT be thrown if `_balance` is equal or greater than `_needed` for an `_id`.
-    ///  MUST be thrown when `_balance` is less than `_needed` for an `id`.
+    /// @dev See [case reference](#erc1155insufficientbalance).
     error ERC1155InsufficientBalance(
         address _sender,
         uint256 _balance,
@@ -201,28 +153,167 @@ interface ERC1155Errors {
 
     /// @notice Indicates a failure with the `_approver` of a token to be approved.
     /// @param _approver The owner's of the tokens to be approved.
-    /// @dev Throw when the cause of failure is the owner of the tokens to be approved.
-    ///  MUST NOT be thrown for transfer operations.
-    ///  MUST be thrown for unintended approvals from the zero address.
+    /// @dev See [case reference](#erc1155insufficientbalance).
     error ERC1155InvalidApprover(address _approver);
 
     /// @notice Indicates a failure with the `_operator` to be approved.
     /// @param _operator The address of who's getting owner's approval.
-    /// @dev Throw when the cause of failure is the spender to be approved.
-    ///  MUST NOT be thrown for transfer operations.
-    ///     Use `ERC1155InsufficientApproval` instead.
-    ///  MUST be thrown for unintended approvals to the zero address.
-    ///  MUST be thrown for unintended approvals to the owner itself.
+    /// @dev See [case reference](#erc1155invalidoperator).
     error ERC1155InvalidOperator(address _operator);
 
     /// @notice Indicates a failure with the `_operator`'s approval in a transfer.
     /// @param _operator The address of who's transferring a token.
     /// @param _id The token to be transferred.
-    /// @dev Throw when the cause of failure is the operator's approval.
-    ///  MUST be thrown when operator `isApprovedForAll(_owner, _operator, _id)` is false
+    /// @dev See [case reference](#erc1155insufficientapproval).
     error ERC1155InsufficientApproval(address _operator, uint256 _id);
 }
 ```
+
+### EIP-20
+
+#### ERC20InvalidSender
+
+Throw when the cause of failure is the sender in a transfer.
+
+- MUST NOT be thrown for approval operations.
+- MUST NOT be thrown for balance or allowance requirements.
+  - Use `ERC20InsufficientBalance` or `ERC20InsufficientAllowance` instead.
+- MUST be thrown for unintended transfers from the zero address.
+
+#### ERC20InvalidReceiver
+
+Throw when the cause of failure is the receiver in a transfer.
+
+- MUST NOT be thrown for approval operations.
+- MUST be thrown for unintended transfers to the zero address.
+- MUST be thrown for unintended transfers to non-compatible addresses (eg. contract addresses).
+
+#### ERC20InsufficientBalance
+
+Throw when the cause of failure is the balance of a sender.
+
+- MUST NOT be thrown if `_balance` is equal or greater than `_needed`.
+- MUST be thrown when `_balance` is less than `_needed`.
+
+#### ERC20InvalidApprover
+
+Throw when the cause of failure is the owner of the tokens to be approved.
+
+- MUST NOT be thrown for transfer operations.
+- MUST be thrown for unintended approvals from the zero address.
+
+#### ERC20InvalidSpender
+
+Throw when the cause of failure is the spender to be approved.
+
+- MUST NOT be thrown for transfer operations.
+  - Use `ERC20InsufficientAllowance` instead.
+- MUST be thrown for unintended approvals to the zero address.
+- MUST be thrown for unintended approvals to the owner itself.
+
+#### ERC20InsufficientAllowance
+
+Throw when the cause of failure is the spender's allowance.
+
+- MUST NOT be thrown if `_allowance` is equal or greater than `_needed`.
+- MUST be thrown when `_allowance` is less than `_needed`.
+
+### EIP-721
+
+#### ERC721InvalidSender
+
+Throw when the cause of failure is the sender in a transfer.
+
+- MUST NOT be thrown for approval operations.
+- MUST NOT be thrown for ownership or approval requirements.
+  - Use `ERC721InvalidOwner` or `ERC721InsufficientApproval` instead.
+- MUST be thrown for unintended transfers from the zero address.
+
+#### ERC721InvalidReceiver
+
+Throw when the cause of failure is the receiver in a transfer.
+
+- MUST NOT be thrown for approval operations.
+- MUST be thrown for unintended transfers to the zero address.
+- MUST be thrown for unintended transfers to non-ERC721TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC721Received`).
+
+#### ERC721InvalidOwner
+
+Throw when the cause of failure is the ownership of a token.
+
+- MUST NOT be thrown for approval operations.
+- MUST be thrown when `ownerOf(_tokenId)` is not `_sender`.
+
+#### ERC721InvalidApprover
+
+Throw when the cause of failure is the owner of the tokens to be approved.
+
+- MUST NOT be thrown for transfer operations.
+- MUST be thrown for unintended approvals from the zero address.
+
+#### ERC721InvalidOperator
+
+Throw when the cause of failure is the spender to be approved.
+
+- MUST NOT be thrown for transfer operations.
+  - Use `ERC721InsufficientApproval` instead.
+- MUST be thrown for unintended approvals to the zero address.
+- MUST be thrown for unintended approvals to the owner itself.
+
+#### ERC721InsufficientApproval
+
+Throw when the cause of failure is the operator's approval.
+
+- MUST be thrown when operator `isApprovedForAll(_owner, _operator)` is false.
+- MUST be thrown when operator `getApproved(_tokenId)` is not `_operator`.
+
+### EIP-1155
+
+#### ERC1155InvalidSender
+
+Throw when the cause of failure is the sender in a transfer.
+
+- MUST NOT be thrown for approval operations.
+- MUST NOT be thrown for balance or allowance requirements.
+  - Use `ERC1155InsufficientBalance` or `ERC1155InsufficientApproval` instead.
+- MUST be thrown for unintended transfers from the zero address.
+
+#### ERC1155InvalidReceiver
+
+Throw when the cause of failure is the receiver in a transfer.
+
+- MUST NOT be thrown for approval operations.
+- MUST be thrown for unintended transfers to the zero address.
+- MUST be thrown for unintended transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
+
+#### ERC1155InsufficientBalance
+
+Throw when the cause of failure is the balance of a sender.
+
+- MUST NOT be thrown if `_balance` is equal or greater than `_needed` for an `_id`.
+- MUST be thrown when `_balance` is less than `_needed` for an `id`.
+
+#### ERC1155InvalidApprover
+
+Throw when the cause of failure is the owner of the tokens to be approved.
+
+- MUST NOT be thrown for transfer operations.
+- MUST be thrown for unintended approvals from the zero address.
+
+#### ERC1155InvalidOperator
+
+Throw when the cause of failure is the spender to be approved.
+
+- MUST NOT be thrown for transfer operations.
+  - Use `ERC1155InsufficientApproval` instead.
+- MUST be thrown for unintended approvals to the zero address.
+- MUST be thrown for unintended approvals to the owner itself.
+
+#### ERC1155InsufficientApproval
+
+Throw when the cause of failure is the operator's approval.
+
+- MUST be thrown when operator `isApprovedForAll(_owner, _operator, _id)` is false.
 
 ## Rationale
 

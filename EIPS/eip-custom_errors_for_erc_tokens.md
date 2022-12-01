@@ -1,8 +1,8 @@
 ---
 eip: [assignedEIPNumber]
-title: Standard Token Errors
+title: Custom errors for ERC tokens
 description: List of Solidity custom errors covering standard token implementations (EIP-20, EIP-721 and EIP-1155)
-author: Francisco Giordano (@frangio), Ernesto García (@ernestognw)
+author: Ernesto García (@ernestognw), Francisco Giordano (@frangio), Hadrien Croubois (@Amxx)
 discussions-to: <URL>
 status: Draft
 type: Standards Track
@@ -364,4 +364,4 @@ Copyright and related rights waived via [CC0](../LICENSE.md).
 
 Please cite this document as:
 
-Francisco Giordano, Ernesto García, "EIP-[assignedEIPNumber]: Standard Token Errors [DRAFT]," Ethereum Improvement Proposals, no. [assignedEIPNumber], November 2022. [Online serial]. Available: https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber].
+Ernesto García, Francisco Giordano, Hadrien Croubois, "EIP-[assignedEIPNumber]: Standard Token Errors [DRAFT]," Ethereum Improvement Proposals, no. [assignedEIPNumber], November 2022. [Online serial]. Available: https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber].

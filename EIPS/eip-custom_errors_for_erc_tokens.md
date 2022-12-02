@@ -33,9 +33,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The provided interfaces with errors SHOULD conform with the [error grammar rules](#error-grammar-rules) described in the [rationale](#rationale) section.
 
-It's important to note that errors MAY be thrown in each scenario, but that's up to the implementers, unless a revert reason is specified in their corresponding EIPs.
+It's important to note that errors MAY be used in each scenario, but that's up to the implementers, unless a revert reason is specified in their corresponding EIPs.
 
-This EIP aims to provide a clear standard only in case an error will be thrown.
+This EIP aims to provide a clear standard only in case an error will be used.
 
 ### [EIP-20](./eip-20.md)
 
@@ -49,10 +49,10 @@ Indicates a failure with the token sender.
 
 Used when the cause of failure is the sender in a transfer.
 
-- MUST NOT be thrown for approval operations.
-- MUST NOT be thrown for balance or allowance requirements.
+- MUST be used for disallowed transfers from the zero address.
+- MUST NOT be used for approval operations.
+- MUST NOT be used for balance or allowance requirements.
   - Use `ERC20InsufficientBalance` or `ERC20InsufficientAllowance` instead.
-- MUST be thrown for disallowed transfers from the zero address.
 
 #### `ERC20InvalidReceiver(address)`
 
@@ -64,9 +64,9 @@ Indicates a failure with the token receiver.
 
 Used when the cause of failure is the receiver in a transfer.
 
-- MUST NOT be thrown for approval operations.
-- MUST be thrown for disallowed transfers to the zero address.
-- MUST be thrown for disallowed transfers to non-compatible addresses (eg. contract addresses).
+- MUST be used for disallowed transfers to the zero address.
+- MUST be used for disallowed transfers to non-compatible addresses (eg. contract addresses).
+- MUST NOT be used for approval operations.
 
 #### `ERC20InsufficientBalance(address, uint256, uint256)`
 
@@ -80,8 +80,8 @@ Indicates an error related to the current `balance` of a sender in a transfer.
 
 Used when the cause of failure is the balance of a sender.
 
-- MUST NOT be thrown if `balance` is equal or greater than `needed`.
-- MUST be thrown when `balance` is less than `needed`.
+- MUST be used when `balance` is less than `needed`.
+- MUST NOT be used if `balance` is equal or greater than `needed`.
 
 #### `ERC20InvalidApprover(address)`
 
@@ -93,8 +93,8 @@ Indicates a failure with the `approver` of a token to be approved.
 
 Used when the cause of failure is the owner of the tokens to be approved.
 
-- MUST NOT be thrown for transfer operations.
-- MUST be thrown for disallowed approvals from the zero address.
+- MUST be used for disallowed approvals from the zero address.
+- MUST NOT be used for transfer operations.
 
 #### `ERC20InvalidSpender(address)`
 
@@ -106,10 +106,10 @@ Indicates a failure with the `spender` to be approved.
 
 Used when the cause of failure is the spender to be approved.
 
-- MUST NOT be thrown for transfer operations.
+- MUST be used for disallowed approvals to the zero address.
+- MUST be used for disallowed approvals to the owner itself.
+- MUST NOT be used for transfer operations.
   - Use `ERC20InsufficientAllowance` instead.
-- MUST be thrown for disallowed approvals to the zero address.
-- MUST be thrown for disallowed approvals to the owner itself.
 
 #### `ERC20InsufficientAllowance(address, uint256, uint256)`
 
@@ -123,8 +123,8 @@ Indicates a failure with the `spender`'s `allowance` in a transfer.
 
 Used when the cause of failure is the spender's allowance.
 
-- MUST NOT be thrown if `allowance` is equal or greater than `needed`.
-- MUST be thrown when `allowance` is less than `needed`.
+- MUST be used when `allowance` is less than `needed`.
+- MUST NOT be used if `allowance` is equal or greater than `needed`.
 
 ### [EIP-721](./eip-721.md)
 
@@ -138,10 +138,10 @@ Indicates a failure with the token sender.
 
 Used when the cause of failure is the sender in a transfer.
 
-- MUST NOT be thrown for approval operations.
-- MUST NOT be thrown for ownership or approval requirements.
+- MUST be used for disallowed transfers from the zero address.
+- MUST NOT be used for approval operations.
+- MUST NOT be used for ownership or approval requirements.
   - Use `ERC721InvalidOwner` or `ERC721InsufficientApproval` instead.
-- MUST be thrown for disallowed transfers from the zero address.
 
 #### `ERC721InvalidReceiver(address)`
 
@@ -153,9 +153,9 @@ Indicates a failure with the token receiver.
 
 Used when the cause of failure is the receiver in a transfer.
 
-- MUST NOT be thrown for approval operations.
-- MUST be thrown for disallowed transfers to the zero address.
-- MUST be thrown for disallowed transfers to non-ERC721TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC721Received`).
+- MUST be used for disallowed transfers to the zero address.
+- MUST be used for disallowed transfers to non-ERC721TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC721Received`).
+- MUST NOT be used for approval operations.
 
 #### `ERC721InvalidOwner(address, uint256)`
 
@@ -168,8 +168,8 @@ Indicates an error related to the ownership over a particular token.
 
 Used when the cause of failure is the ownership of a token.
 
-- MUST NOT be thrown for approval operations.
-- MUST be thrown when `ownerOf(tokenId)` is not `sender`.
+- MUST be used when `ownerOf(tokenId)` is not `sender`.
+- MUST NOT be used for approval operations.
 
 #### `ERC721InvalidApprover(address)`
 
@@ -181,8 +181,8 @@ Indicates a failure with the `owner` of a token to be approved.
 
 Used when the cause of failure is the owner of the tokens to be approved.
 
-- MUST NOT be thrown for transfer operations.
-- MUST be thrown for disallowed approvals from the zero address.
+- MUST be used for disallowed approvals from the zero address.
+- MUST NOT be used for transfer operations.
 
 #### `ERC721InvalidOperator(address)`
 
@@ -194,10 +194,10 @@ Indicates a failure with the `operator` to be approved.
 
 Used when the cause of failure is the spender to be approved.
 
-- MUST NOT be thrown for transfer operations.
+- MUST be used for disallowed approvals to the zero address.
+- MUST be used for disallowed approvals to the owner itself.
+- MUST NOT be used for transfer operations.
   - Use `ERC721InsufficientApproval` instead.
-- MUST be thrown for disallowed approvals to the zero address.
-- MUST be thrown for disallowed approvals to the owner itself.
 
 #### `ERC721InsufficientApproval(address, uint256)`
 
@@ -210,8 +210,8 @@ Indicates a failure with the `operator`'s approval in a transfer.
 
 Used when the cause of failure is the operator's approval.
 
-- MUST be thrown when operator `isApprovedForAll(owner, operator)` is false.
-- MUST be thrown when operator `getApproved(tokenId)` is not `operator`.
+- MUST be used when operator `isApprovedForAll(owner, operator)` is false.
+- MUST be used when operator `getApproved(tokenId)` is not `operator`.
 
 ### [EIP-1155](./eip-1155.md)
 
@@ -225,10 +225,10 @@ Indicates a failure with the token sender.
 
 Used when the cause of failure is the sender in a transfer.
 
-- MUST NOT be thrown for approval operations.
-- MUST NOT be thrown for balance or allowance requirements.
+- MUST be used for disallowed transfers from the zero address.
+- MUST NOT be used for approval operations.
+- MUST NOT be used for balance or allowance requirements.
   - Use `ERC1155InsufficientBalance` or `ERC1155InsufficientApproval` instead.
-- MUST be thrown for disallowed transfers from the zero address.
 
 #### `ERC1155InvalidReceiver(address)`
 
@@ -240,9 +240,9 @@ Indicates a failure with the token receiver.
 
 Used when the cause of failure is the receiver in a transfer.
 
-- MUST NOT be thrown for approval operations.
-- MUST be thrown for disallowed transfers to the zero address.
-- MUST be thrown for disallowed transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
+- MUST be used for disallowed transfers to the zero address.
+- MUST be used for disallowed transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
+- MUST NOT be used for approval operations.
 
 #### `ERC1155InsufficientBalance(address, uint256, uint256, uint256)`
 
@@ -257,8 +257,8 @@ Indicates an error related to the current `balance` of a sender in a transfer.
 
 Used when the cause of failure is the balance of a sender.
 
-- MUST NOT be thrown if `balance` is equal or greater than `needed` for an `id`.
-- MUST be thrown when `balance` is less than `needed` for an `id`.
+- MUST be used when `balance` is less than `needed` for an `id`.
+- MUST NOT be used if `balance` is equal or greater than `needed` for an `id`.
 
 #### `ERC1155InvalidApprover(address)`
 
@@ -270,8 +270,8 @@ Indicates a failure with the `approver` of a token to be approved.
 
 Used when the cause of failure is the owner of the tokens to be approved.
 
-- MUST NOT be thrown for transfer operations.
-- MUST be thrown for disallowed approvals from the zero address.
+- MUST be used for disallowed approvals from the zero address.
+- MUST NOT be used for transfer operations.
 
 #### `ERC1155InvalidOperator(address)`
 
@@ -283,10 +283,10 @@ Indicates a failure with the `operator` to be approved.
 
 Used when the cause of failure is the spender to be approved.
 
-- MUST NOT be thrown for transfer operations.
+- MUST be used for disallowed approvals to the zero address.
+- MUST be used for disallowed approvals to the owner itself.
+- MUST NOT be used for transfer operations.
   - Use `ERC1155InsufficientApproval` instead.
-- MUST be thrown for disallowed approvals to the zero address.
-- MUST be thrown for disallowed approvals to the owner itself.
 
 #### `ERC1155InsufficientApproval(address, uint256)`
 
@@ -299,7 +299,7 @@ Indicates a failure with the `operator`'s approval in a transfer.
 
 Used when the cause of failure is the operator's approval.
 
-- MUST be thrown when operator `isApprovedForAll(owner, operator, id)` is false.
+- MUST be used when operator `isApprovedForAll(owner, operator, id)` is false.
 
 ### Error additions
 

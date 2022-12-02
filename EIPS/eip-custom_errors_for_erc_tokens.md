@@ -13,13 +13,13 @@ created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
 
 ## Abstract
 
-The following specification allows for the use of a standard list of Solidity [custom errors](https://blog.soliditylang.org/2021/04/21/custom-errors/) to be used within [EIP-20](./eip-20.md), [EIP-721](./eip-721.md) and [EIP-1155](./eip-1155.md) tokens.
+The following specification allows for the use of a standard list of Solidity custom errors to be used within [EIP-20](./eip-20.md), [EIP-721](./eip-721.md) and [EIP-1155](./eip-1155.md) tokens.
 
-Ethereum applications (DApps) and wallets have historically used [revert statements](https://docs.soliditylang.org/en/v0.8.16/control-structures.html#revert-statement) to show relevant failure data to the users, however, this EIP provides a standard list of errors designed to give at least the same relevant information, but in a structured and expected way.
+Ethereum applications (DApps) and wallets have historically used revert statements to show relevant failure data to the users, however, this EIP provides a standard list of errors designed to give at least the same relevant information, but in a structured and expected way.
 
 ## Motivation
 
-Since the introduction of Solidity custom errors in [v0.8.4](https://github.com/ethereum/solidity/releases/tag/v0.8.4), these have provided a way to show failures in a more expresive way with dynamic arguments, while reducing deployment costs.
+Since the introduction of Solidity custom errors in v0.8.4, these have provided a way to show failures in a more expresive way with dynamic arguments, while reducing deployment costs.
 
 At the moment of the release of custom errors, the standard tokens ([EIP-20](./eip-20.md), [EIP-721](./eip-721.md), [EIP-1155](./eip-1155.md)) were already in finalized state, so no error specification was included.
 

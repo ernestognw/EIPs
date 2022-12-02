@@ -33,9 +33,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The provided interfaces with errors SHOULD conform with the [error grammar rules](#error-grammar-rules) described in the [rationale](#rationale) section.
 
-It's important to note that errors MAY be used in each scenario, but that's up to the implementers, unless a revert reason is specified in their corresponding EIPs.
-
-This EIP aims to provide a clear standard only in case an error will be used.
+This EIP defines standard errors that may be used by implementations in certain scenarios, but does not specify whether implementations should revert in those scenarios, which remains up to the implementers, unless a revert is mandated by the corresponding EIPs.
 
 ### [EIP-20](./eip-20.md)
 

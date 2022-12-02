@@ -47,7 +47,7 @@ Indicates a failure with the token sender.
 
 - `address sender`: The address of whose tokens are transferred from.
 
-Throw when the cause of failure is the sender in a transfer.
+Used when the cause of failure is the sender in a transfer.
 
 - MUST NOT be thrown for approval operations.
 - MUST NOT be thrown for balance or allowance requirements.
@@ -62,7 +62,7 @@ Indicates a failure with the token receiver.
 
 - `address receiver` The address of whose tokens are transferred to.
 
-Throw when the cause of failure is the receiver in a transfer.
+Used when the cause of failure is the receiver in a transfer.
 
 - MUST NOT be thrown for approval operations.
 - MUST be thrown for unintended transfers to the zero address.
@@ -78,7 +78,7 @@ Indicates an error related to the current `balance` of a sender in a transfer.
 - `uint256 balance`: The current amount of token the sender has.
 - `uint256 needed`: The amount of token the sender needs to perform the operation.
 
-Throw when the cause of failure is the balance of a sender.
+Used when the cause of failure is the balance of a sender.
 
 - MUST NOT be thrown if `balance` is equal or greater than `needed`.
 - MUST be thrown when `balance` is less than `needed`.
@@ -91,7 +91,7 @@ Indicates a failure with the `approver` of a token to be approved.
 
 - `address approver`: The owner's of the tokens to be approved.
 
-Throw when the cause of failure is the owner of the tokens to be approved.
+Used when the cause of failure is the owner of the tokens to be approved.
 
 - MUST NOT be thrown for transfer operations.
 - MUST be thrown for unintended approvals from the zero address.
@@ -104,7 +104,7 @@ Indicates a failure with the `spender` to be approved.
 
 - `address spender` The address of who's getting owner's approval.
 
-Throw when the cause of failure is the spender to be approved.
+Used when the cause of failure is the spender to be approved.
 
 - MUST NOT be thrown for transfer operations.
   - Use `ERC20InsufficientAllowance` instead.
@@ -121,7 +121,7 @@ Indicates a failure with the `spender`'s `allowance` in a transfer.
 - `uint256 allowance`: The current amount of tokens a spender can use.
 - `uint256 needed`: The allowance needed to perform the operation.
 
-Throw when the cause of failure is the spender's allowance.
+Used when the cause of failure is the spender's allowance.
 
 - MUST NOT be thrown if `allowance` is equal or greater than `needed`.
 - MUST be thrown when `allowance` is less than `needed`.
@@ -136,7 +136,7 @@ Indicates a failure with the token sender.
 
 - `address sender`: The address of whose token is transferred from.
 
-Throw when the cause of failure is the sender in a transfer.
+Used when the cause of failure is the sender in a transfer.
 
 - MUST NOT be thrown for approval operations.
 - MUST NOT be thrown for ownership or approval requirements.
@@ -151,7 +151,7 @@ Indicates a failure with the token receiver.
 
 - `address receiver`: The address of whose token is transferred to.
 
-Throw when the cause of failure is the receiver in a transfer.
+Used when the cause of failure is the receiver in a transfer.
 
 - MUST NOT be thrown for approval operations.
 - MUST be thrown for unintended transfers to the zero address.
@@ -166,7 +166,7 @@ Indicates an error related to the ownership over a particular token.
 
 ##### Parameters
 
-Throw when the cause of failure is the ownership of a token.
+Used when the cause of failure is the ownership of a token.
 
 - MUST NOT be thrown for approval operations.
 - MUST be thrown when `ownerOf(tokenId)` is not `sender`.
@@ -179,7 +179,7 @@ Indicates a failure with the `owner` of a token to be approved.
 
 - `address approver`: The owner's of the token to be approved.
 
-Throw when the cause of failure is the owner of the tokens to be approved.
+Used when the cause of failure is the owner of the tokens to be approved.
 
 - MUST NOT be thrown for transfer operations.
 - MUST be thrown for unintended approvals from the zero address.
@@ -192,7 +192,7 @@ Indicates a failure with the `operator` to be approved.
 
 - `address operator`: The address of who's getting owner's approval.
 
-Throw when the cause of failure is the spender to be approved.
+Used when the cause of failure is the spender to be approved.
 
 - MUST NOT be thrown for transfer operations.
   - Use `ERC721InsufficientApproval` instead.
@@ -208,7 +208,7 @@ Indicates a failure with the `operator`'s approval in a transfer.
 - `address operator`: The address of who's transferring a token.
 - `uint256 tokenId`: The token to be transferred.
 
-Throw when the cause of failure is the operator's approval.
+Used when the cause of failure is the operator's approval.
 
 - MUST be thrown when operator `isApprovedForAll(owner, operator)` is false.
 - MUST be thrown when operator `getApproved(tokenId)` is not `operator`.
@@ -223,7 +223,7 @@ Indicates a failure with the token sender.
 
 - `address sender`: The address of whose tokens are transferred from.
 
-Throw when the cause of failure is the sender in a transfer.
+Used when the cause of failure is the sender in a transfer.
 
 - MUST NOT be thrown for approval operations.
 - MUST NOT be thrown for balance or allowance requirements.
@@ -238,7 +238,7 @@ Indicates a failure with the token receiver.
 
 - `address receiver` The address of whose tokens are transferred to.
 
-Throw when the cause of failure is the receiver in a transfer.
+Used when the cause of failure is the receiver in a transfer.
 
 - MUST NOT be thrown for approval operations.
 - MUST be thrown for unintended transfers to the zero address.
@@ -255,7 +255,7 @@ Indicates an error related to the current `balance` of a sender in a transfer.
 - `uint256 needed`: The amount of token the sender needs to perform the operation.
 - `uint256 id`: The id of the token.
 
-Throw when the cause of failure is the balance of a sender.
+Used when the cause of failure is the balance of a sender.
 
 - MUST NOT be thrown if `balance` is equal or greater than `needed` for an `id`.
 - MUST be thrown when `balance` is less than `needed` for an `id`.
@@ -268,7 +268,7 @@ Indicates a failure with the `approver` of a token to be approved.
 
 - `address approver`: The owner's of the tokens to be approved.
 
-Throw when the cause of failure is the owner of the tokens to be approved.
+Used when the cause of failure is the owner of the tokens to be approved.
 
 - MUST NOT be thrown for transfer operations.
 - MUST be thrown for unintended approvals from the zero address.
@@ -281,7 +281,7 @@ Indicates a failure with the `operator` to be approved.
 
 - `address operator`: The address of who's getting owner's approval.
 
-Throw when the cause of failure is the spender to be approved.
+Used when the cause of failure is the spender to be approved.
 
 - MUST NOT be thrown for transfer operations.
   - Use `ERC1155InsufficientApproval` instead.
@@ -297,7 +297,7 @@ Indicates a failure with the `operator`'s approval in a transfer.
 - `address operator`: The address of who's transferring a token.
 - `uint256 id`: The token to be transferred.
 
-Throw when the cause of failure is the operator's approval.
+Used when the cause of failure is the operator's approval.
 
 - MUST be thrown when operator `isApprovedForAll(owner, operator, id)` is false.
 

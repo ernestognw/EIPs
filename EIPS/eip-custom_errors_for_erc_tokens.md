@@ -13,7 +13,7 @@ created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
 
 ## Abstract
 
-The following specification allows for the use of a standard list of Solidity [custom errors](https://blog.soliditylang.org/2021/04/21/custom-errors/) to be used within EIP-20, EIP-721 and EIP-1155 tokens.
+The following specification allows for the use of a standard list of Solidity [custom errors](https://blog.soliditylang.org/2021/04/21/custom-errors/) to be used within [EIP-20](./eip-20.md), [EIP-721](./eip-721.md) and [EIP-1155](./eip-1155.md) tokens.
 
 Ethereum applications (DApps) and wallets have historically used [revert statements](https://docs.soliditylang.org/en/v0.8.16/control-structures.html#revert-statement) to show relevant failure data to the users, however, this EIP provides a standard list of errors designed to give at least the same relevant information, but in a structured and expected way.
 
@@ -21,7 +21,7 @@ Ethereum applications (DApps) and wallets have historically used [revert stateme
 
 Since the introduction of Solidity custom errors in [v0.8.4](https://github.com/ethereum/solidity/releases/tag/v0.8.4), these have provided a way to show failures in a more expresive way with dynamic arguments, while reducing deployment costs.
 
-At the moment of the release of custom errors, the standard tokens (EIP-20, EIP-721, EIP-1155) were already in finalized state, so no error specification was included.
+At the moment of the release of custom errors, the standard tokens ([EIP-20](./eip-20.md), [EIP-721](./eip-721.md), [EIP-1155](./eip-1155.md)) were already in finalized state, so no error specification was included.
 
 An error specification will allow users to expect more consistent error messages across applications or testing environments, while exposing pertinent arguments and overall reducing the need of writing expensive revert strings in the deployment bytecode.
 
@@ -37,7 +37,7 @@ It's important to note that errors MAY be thrown in each scenario, but that's up
 
 This EIP aims to provide a clear standard only in case an error will be thrown.
 
-### EIP-20
+### [EIP-20](./eip-20.md)
 
 #### `ERC20InvalidSender(address _sender)`
 
@@ -126,7 +126,7 @@ Throw when the cause of failure is the spender's allowance.
 - MUST NOT be thrown if `_allowance` is equal or greater than `_needed`.
 - MUST be thrown when `_allowance` is less than `_needed`.
 
-### EIP-721
+### [EIP-721](./eip-721.md)
 
 #### `ERC721InvalidSender(address _sender)`
 
@@ -213,7 +213,7 @@ Throw when the cause of failure is the operator's approval.
 - MUST be thrown when operator `isApprovedForAll(_owner, _operator)` is false.
 - MUST be thrown when operator `getApproved(_tokenId)` is not `_operator`.
 
-### EIP-1155
+### [EIP-1155](./eip-1155.md)
 
 #### `ERC1155InvalidSender(address _sender)`
 
@@ -490,13 +490,13 @@ interface ERC721Errors {
 /// @dev See https://eips.ethereum.org/EIPS/eip-1155
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC1155Errors {
-    /// @dev See [reference](#erc1155invalidsender).
+    /// @notice See [reference](#erc1155invalidsender).
     error ERC1155InvalidSender(address _sender);
 
-    /// @dev See [reference](#erc1155invalidreceiver).
+    /// @notice See [reference](#erc1155invalidreceiver).
     error ERC1155InvalidReceiver(address _receiver);
 
-    /// @dev See [reference](#erc1155insufficientbalance).
+    /// @notice See [reference](#erc1155insufficientbalance).
     error ERC1155InsufficientBalance(
         address _sender,
         uint256 _balance,
@@ -504,13 +504,13 @@ interface ERC1155Errors {
         uint256 _id
     );
 
-    /// @dev See [reference](#erc1155insufficientbalance).
+    /// @notice See [reference](#erc1155insufficientbalance).
     error ERC1155InvalidApprover(address _approver);
 
-    /// @dev See [reference](#erc1155invalidoperator).
+    /// @notice See [reference](#erc1155invalidoperator).
     error ERC1155InvalidOperator(address _operator);
 
-    /// @dev See [reference](#erc1155insufficientapproval).
+    /// @notice See [reference](#erc1155insufficientapproval).
     error ERC1155InsufficientApproval(address _operator, uint256 _id);
 }
 ```

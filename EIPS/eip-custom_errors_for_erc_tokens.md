@@ -301,6 +301,10 @@ Throw when the cause of failure is the operator's approval.
 
 - MUST be thrown when operator `isApprovedForAll(_owner, _operator, _id)` is false.
 
+### Error additions
+
+Any addition to this EIP is considerred a new proposal, but SHOULD follow the guidelines presented in the [rationale](#rationale) section to keep consistency.
+
 ## Rationale
 
 The objectives of creating a standard for token errors are to provide context about the error, while keeping gramatical sense, and making a moderated use of meaningful arguments.
@@ -312,39 +316,32 @@ Considering the outlined above, the errors are designed based on the standard ac
 The main actions that can be performed within a token are:
 
 - **Transfer**: An operation in which a _sender_ moves any form of _balance_ to a _receiver_.
-- **Approval**: An operation in which an _approver_ grants any form of _approval_ to an _operator_
+- **Approval**: An operation in which an _approver_ grants any form of _approval_ to an _operator_.
 
-Giving the following list of subjects:
-
-- **Sender**
-- **Receiver**
-- **Balance**
-- **Approver**
-- **Operator**
-- **Approval**
-
-These subjects are expected to be exhaustive to represent _what_ can go wrong on a transaction, which can be shown as an error by adding a [failure prefix](#error-prefixes).
+Whose subjects outlined are expected to be exhaustive to represent _what_ can go wrong in a transaction, which can be shown as an error by adding a [failure prefix](#error-prefixes).
 
 Note that `Token` or `TokenID` MUST NOT be a subject for the following reasons:
 
 1. The [Domain](#domain) is explicit enough to identify it as a token error.
 2. Although `TokenID` may identify an error, the token itself SHOULD NOT the root of the error, but can be additional information.
 
+Consider that, in practice, some of the subjects in a contract might be called different while they represent the same. These are listed below:
+
+- **Balance**: Represents the access to a certain amount of tokens for an address.
+  - EIP-721: Instead of _balance_, an address is _owner_ of a token.
+- **Approval**: Represents a permission granted to an operator.
+  - EIP-20: Instead of _approval_, an operator has _allowance_.
+- **Operator**: Represents an address that has received approval over third-party tokens.
+  - EIP-20: Instead of _operator_, an address with allowance is an _spender_.
+
+If a subject is called different on a particular token standard, the error MUST be consistent with the standard's naming convention.
+
 ### Error prefixes
 
-- **Invalid**: Used for general incorrectness.
-- **Insufficient**: Used when defining an error for amounts (eg. balance, approval).
+An error prefix is what complements a subject, so it can be read as an error.
+Developers can think about an error prefix as the _why_ an error happened.
 
-These prefixes combined with the subjects create the following list of base standard errors.
-
-### Base standard errors
-
-- **InvalidSender**
-- **InvalidReceiver**
-- **InsufficientBalance**
-- **InvalidApprover**
-- **InvalidOperator**
-- **InsufficientApproval**
+A prefix can be `Invalid` for general incorrectness, or more specific like `Insufficient` for amounts (or lack of).
 
 ### Domain
 
@@ -366,19 +363,6 @@ ERC20InsufficientApproval(address _spender, uint256 _allowance, uint256 _needed)
 ERC721InsufficientApproval(address _operator, uint256 _tokenId);
 ```
 
-### Subject naming adjustments
-
-While the base standard errors can work with the current standard token implementations, in practice, some of the subjects in a contract might be called different while they represent the same. These are listed below:
-
-- **Balance**: Represents the access to a certain amount of tokens for an address.
-  - EIP-721: Instead of _balance_, an address is _owner_ of a token.
-- **Approval**: Represents a permission granted to an operator.
-  - EIP-20: Instead of _approval_, an operator has _allowance_.
-- **Operator**: Represents an address that has received approval over third-party tokens.
-  - EIP-20: Instead of _operator_, an address with allowance is an _spender_.
-
-If a subject is called different on a particular token standard, the error MUST be consistent with the standard's naming convention.
-
 ### Arguments
 
 The selection of arguments depends on the subject involved, and it MUST follow the order presented below:
@@ -389,7 +373,7 @@ The selection of arguments depends on the subject involved, and it MUST follow t
 
 Consider that sometimes _Who_ is also the _What_, that's why argument 2 is also optional.
 
-Note: Some tokens may need a `_tokenId` or `_id`. This is suggested to include at the end as additional information, according to the [subjects list](#actions-and-subjects)
+Note: Some tokens may need a `_tokenId` or `_id`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
 
 ### Error grammar rules
 
@@ -402,8 +386,8 @@ Given the above, we can summarize the construction of error names with a grammar
 Where:
 
 - _Domain_: SHOULD be `ERC20`, `ERC721` or `ERC1155`. Although other token standards may be suggested if not considered in this EIP.
-- _ErrorPrefix_: MUST be `Invalid` or `Insufficient`.
-- _Actor_: SHOULD be `Sender`, `Receiver`, `Balance`, `Approver`, `Operator` or `Approval`, and MUST make adjustments based on domain's naming convention.
+- _ErrorPrefix_: MAY be `Invalid`, `Insufficient`, or another if it's more appropiated.
+- _Actor_: MAY be `Sender`, `Receiver`, `Balance`, `Approver`, `Operator`, `Approval` or another if it's more appropiated, and MUST make adjustments based on domain's naming convention.
 - _Arguments_: MUST follow the [_who_, _what_ and _why_ order](#arguments).
 
 ## Backwards Compatibility

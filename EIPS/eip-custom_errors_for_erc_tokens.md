@@ -52,7 +52,7 @@ Used when the cause of failure is the sender in a transfer.
 - MUST NOT be thrown for approval operations.
 - MUST NOT be thrown for balance or allowance requirements.
   - Use `ERC20InsufficientBalance` or `ERC20InsufficientAllowance` instead.
-- MUST be thrown for unintended transfers from the zero address.
+- MUST be thrown for disallowed transfers from the zero address.
 
 #### `ERC20InvalidReceiver(address)`
 
@@ -65,8 +65,8 @@ Indicates a failure with the token receiver.
 Used when the cause of failure is the receiver in a transfer.
 
 - MUST NOT be thrown for approval operations.
-- MUST be thrown for unintended transfers to the zero address.
-- MUST be thrown for unintended transfers to non-compatible addresses (eg. contract addresses).
+- MUST be thrown for disallowed transfers to the zero address.
+- MUST be thrown for disallowed transfers to non-compatible addresses (eg. contract addresses).
 
 #### `ERC20InsufficientBalance(address, uint256, uint256)`
 
@@ -94,7 +94,7 @@ Indicates a failure with the `approver` of a token to be approved.
 Used when the cause of failure is the owner of the tokens to be approved.
 
 - MUST NOT be thrown for transfer operations.
-- MUST be thrown for unintended approvals from the zero address.
+- MUST be thrown for disallowed approvals from the zero address.
 
 #### `ERC20InvalidSpender(address)`
 
@@ -108,8 +108,8 @@ Used when the cause of failure is the spender to be approved.
 
 - MUST NOT be thrown for transfer operations.
   - Use `ERC20InsufficientAllowance` instead.
-- MUST be thrown for unintended approvals to the zero address.
-- MUST be thrown for unintended approvals to the owner itself.
+- MUST be thrown for disallowed approvals to the zero address.
+- MUST be thrown for disallowed approvals to the owner itself.
 
 #### `ERC20InsufficientAllowance(address, uint256, uint256)`
 
@@ -141,7 +141,7 @@ Used when the cause of failure is the sender in a transfer.
 - MUST NOT be thrown for approval operations.
 - MUST NOT be thrown for ownership or approval requirements.
   - Use `ERC721InvalidOwner` or `ERC721InsufficientApproval` instead.
-- MUST be thrown for unintended transfers from the zero address.
+- MUST be thrown for disallowed transfers from the zero address.
 
 #### `ERC721InvalidReceiver(address)`
 
@@ -154,8 +154,8 @@ Indicates a failure with the token receiver.
 Used when the cause of failure is the receiver in a transfer.
 
 - MUST NOT be thrown for approval operations.
-- MUST be thrown for unintended transfers to the zero address.
-- MUST be thrown for unintended transfers to non-ERC721TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC721Received`).
+- MUST be thrown for disallowed transfers to the zero address.
+- MUST be thrown for disallowed transfers to non-ERC721TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC721Received`).
 
 #### `ERC721InvalidOwner(address, uint256)`
 
@@ -182,7 +182,7 @@ Indicates a failure with the `owner` of a token to be approved.
 Used when the cause of failure is the owner of the tokens to be approved.
 
 - MUST NOT be thrown for transfer operations.
-- MUST be thrown for unintended approvals from the zero address.
+- MUST be thrown for disallowed approvals from the zero address.
 
 #### `ERC721InvalidOperator(address)`
 
@@ -196,8 +196,8 @@ Used when the cause of failure is the spender to be approved.
 
 - MUST NOT be thrown for transfer operations.
   - Use `ERC721InsufficientApproval` instead.
-- MUST be thrown for unintended approvals to the zero address.
-- MUST be thrown for unintended approvals to the owner itself.
+- MUST be thrown for disallowed approvals to the zero address.
+- MUST be thrown for disallowed approvals to the owner itself.
 
 #### `ERC721InsufficientApproval(address, uint256)`
 
@@ -228,7 +228,7 @@ Used when the cause of failure is the sender in a transfer.
 - MUST NOT be thrown for approval operations.
 - MUST NOT be thrown for balance or allowance requirements.
   - Use `ERC1155InsufficientBalance` or `ERC1155InsufficientApproval` instead.
-- MUST be thrown for unintended transfers from the zero address.
+- MUST be thrown for disallowed transfers from the zero address.
 
 #### `ERC1155InvalidReceiver(address)`
 
@@ -241,8 +241,8 @@ Indicates a failure with the token receiver.
 Used when the cause of failure is the receiver in a transfer.
 
 - MUST NOT be thrown for approval operations.
-- MUST be thrown for unintended transfers to the zero address.
-- MUST be thrown for unintended transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
+- MUST be thrown for disallowed transfers to the zero address.
+- MUST be thrown for disallowed transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
 
 #### `ERC1155InsufficientBalance(address, uint256, uint256, uint256)`
 
@@ -271,7 +271,7 @@ Indicates a failure with the `approver` of a token to be approved.
 Used when the cause of failure is the owner of the tokens to be approved.
 
 - MUST NOT be thrown for transfer operations.
-- MUST be thrown for unintended approvals from the zero address.
+- MUST be thrown for disallowed approvals from the zero address.
 
 #### `ERC1155InvalidOperator(address)`
 
@@ -285,8 +285,8 @@ Used when the cause of failure is the spender to be approved.
 
 - MUST NOT be thrown for transfer operations.
   - Use `ERC1155InsufficientApproval` instead.
-- MUST be thrown for unintended approvals to the zero address.
-- MUST be thrown for unintended approvals to the owner itself.
+- MUST be thrown for disallowed approvals to the zero address.
+- MUST be thrown for disallowed approvals to the owner itself.
 
 #### `ERC1155InsufficientApproval(address, uint256)`
 

@@ -45,7 +45,7 @@ Indicates a failure with the token sender.
 
 ##### Parameters
 
-- `address _sender`: The address of whose tokens are transferred from.
+- `address sender`: The address of whose tokens are transferred from.
 
 Throw when the cause of failure is the sender in a transfer.
 
@@ -60,7 +60,7 @@ Indicates a failure with the token receiver.
 
 ##### Parameters
 
-- `address _receiver` The address of whose tokens are transferred to.
+- `address receiver` The address of whose tokens are transferred to.
 
 Throw when the cause of failure is the receiver in a transfer.
 
@@ -70,26 +70,26 @@ Throw when the cause of failure is the receiver in a transfer.
 
 #### `ERC20InsufficientBalance(address, uint256, uint256)`
 
-Indicates an error related to the current `_balance` of a sender in a transfer.
+Indicates an error related to the current `balance` of a sender in a transfer.
 
 ##### Parameters
 
-- `address _sender`: The address of whose tokens are transferred from.
-- `uint256 _balance`: The current amount of token the sender has.
-- `uint256 _needed`: The amount of token the sender needs to perform the operation.
+- `address sender`: The address of whose tokens are transferred from.
+- `uint256 balance`: The current amount of token the sender has.
+- `uint256 needed`: The amount of token the sender needs to perform the operation.
 
 Throw when the cause of failure is the balance of a sender.
 
-- MUST NOT be thrown if `_balance` is equal or greater than `_needed`.
-- MUST be thrown when `_balance` is less than `_needed`.
+- MUST NOT be thrown if `balance` is equal or greater than `needed`.
+- MUST be thrown when `balance` is less than `needed`.
 
 #### `ERC20InvalidApprover(address)`
 
-Indicates a failure with the `_approver` of a token to be approved.
+Indicates a failure with the `approver` of a token to be approved.
 
 ##### Parameters
 
-- `address _approver`: The owner's of the tokens to be approved.
+- `address approver`: The owner's of the tokens to be approved.
 
 Throw when the cause of failure is the owner of the tokens to be approved.
 
@@ -98,11 +98,11 @@ Throw when the cause of failure is the owner of the tokens to be approved.
 
 #### `ERC20InvalidSpender(address)`
 
-Indicates a failure with the `_spender` to be approved.
+Indicates a failure with the `spender` to be approved.
 
 ##### Parameters
 
-- `address _spender` The address of who's getting owner's approval.
+- `address spender` The address of who's getting owner's approval.
 
 Throw when the cause of failure is the spender to be approved.
 
@@ -113,18 +113,18 @@ Throw when the cause of failure is the spender to be approved.
 
 #### `ERC20InsufficientAllowance(address, uint256, uint256)`
 
-Indicates a failure with the `_spender`'s `_allowance` in a transfer.
+Indicates a failure with the `spender`'s `allowance` in a transfer.
 
 ##### Parameters
 
-- `address _spender`: The address of who's spending the tokens.
-- `uint256 _allowance`: The current amount of tokens a spender can use.
-- `uint256 _needed`: The allowance needed to perform the operation.
+- `address spender`: The address of who's spending the tokens.
+- `uint256 allowance`: The current amount of tokens a spender can use.
+- `uint256 needed`: The allowance needed to perform the operation.
 
 Throw when the cause of failure is the spender's allowance.
 
-- MUST NOT be thrown if `_allowance` is equal or greater than `_needed`.
-- MUST be thrown when `_allowance` is less than `_needed`.
+- MUST NOT be thrown if `allowance` is equal or greater than `needed`.
+- MUST be thrown when `allowance` is less than `needed`.
 
 ### [EIP-721](./eip-721.md)
 
@@ -134,7 +134,7 @@ Indicates a failure with the token sender.
 
 ##### Parameters
 
-- `address _sender`: The address of whose token is transferred from.
+- `address sender`: The address of whose token is transferred from.
 
 Throw when the cause of failure is the sender in a transfer.
 
@@ -149,7 +149,7 @@ Indicates a failure with the token receiver.
 
 ##### Parameters
 
-- `address _receiver`: The address of whose token is transferred to.
+- `address receiver`: The address of whose token is transferred to.
 
 Throw when the cause of failure is the receiver in a transfer.
 
@@ -161,23 +161,23 @@ Throw when the cause of failure is the receiver in a transfer.
 
 Indicates an error related to the ownership over a particular token.
 
-- `address _sender`: The address of whose token is transferred from.
-- `uint256 _tokenId`: The id of the token to be transferred.
+- `address sender`: The address of whose token is transferred from.
+- `uint256 tokenId`: The id of the token to be transferred.
 
 ##### Parameters
 
 Throw when the cause of failure is the ownership of a token.
 
 - MUST NOT be thrown for approval operations.
-- MUST be thrown when `ownerOf(_tokenId)` is not `_sender`.
+- MUST be thrown when `ownerOf(tokenId)` is not `sender`.
 
 #### `ERC721InvalidApprover(address)`
 
-Indicates a failure with the `_owner` of a token to be approved.
+Indicates a failure with the `owner` of a token to be approved.
 
 ##### Parameters
 
-- `address _approver`: The owner's of the token to be approved.
+- `address approver`: The owner's of the token to be approved.
 
 Throw when the cause of failure is the owner of the tokens to be approved.
 
@@ -186,11 +186,11 @@ Throw when the cause of failure is the owner of the tokens to be approved.
 
 #### `ERC721InvalidOperator(address)`
 
-Indicates a failure with the `_operator` to be approved.
+Indicates a failure with the `operator` to be approved.
 
 ##### Parameters
 
-- `address _operator`: The address of who's getting owner's approval.
+- `address operator`: The address of who's getting owner's approval.
 
 Throw when the cause of failure is the spender to be approved.
 
@@ -201,17 +201,17 @@ Throw when the cause of failure is the spender to be approved.
 
 #### `ERC721InsufficientApproval(address, uint256)`
 
-Indicates a failure with the `_operator`'s approval in a transfer.
+Indicates a failure with the `operator`'s approval in a transfer.
 
 ##### Parameters
 
-- `address _operator`: The address of who's transferring a token.
-- `uint256 _tokenId`: The token to be transferred.
+- `address operator`: The address of who's transferring a token.
+- `uint256 tokenId`: The token to be transferred.
 
 Throw when the cause of failure is the operator's approval.
 
-- MUST be thrown when operator `isApprovedForAll(_owner, _operator)` is false.
-- MUST be thrown when operator `getApproved(_tokenId)` is not `_operator`.
+- MUST be thrown when operator `isApprovedForAll(owner, operator)` is false.
+- MUST be thrown when operator `getApproved(tokenId)` is not `operator`.
 
 ### [EIP-1155](./eip-1155.md)
 
@@ -221,7 +221,7 @@ Indicates a failure with the token sender.
 
 ##### Parameters
 
-- `address _sender`: The address of whose tokens are transferred from.
+- `address sender`: The address of whose tokens are transferred from.
 
 Throw when the cause of failure is the sender in a transfer.
 
@@ -236,7 +236,7 @@ Indicates a failure with the token receiver.
 
 ##### Parameters
 
-- `address _receiver` The address of whose tokens are transferred to.
+- `address receiver` The address of whose tokens are transferred to.
 
 Throw when the cause of failure is the receiver in a transfer.
 
@@ -246,27 +246,27 @@ Throw when the cause of failure is the receiver in a transfer.
 
 #### `ERC1155InsufficientBalance(address, uint256, uint256, uint256)`
 
-Indicates an error related to the current `_balance` of a sender in a transfer.
+Indicates an error related to the current `balance` of a sender in a transfer.
 
 ##### Parameters
 
-- `address _sender`: The address of whose tokens are transferred from.
-- `uint256 _balance`: The current amount of token the sender has.
-- `uint256 _needed`: The amount of token the sender needs to perform the operation.
-- `uint256 _id`: The id of the token.
+- `address sender`: The address of whose tokens are transferred from.
+- `uint256 balance`: The current amount of token the sender has.
+- `uint256 needed`: The amount of token the sender needs to perform the operation.
+- `uint256 id`: The id of the token.
 
 Throw when the cause of failure is the balance of a sender.
 
-- MUST NOT be thrown if `_balance` is equal or greater than `_needed` for an `_id`.
-- MUST be thrown when `_balance` is less than `_needed` for an `id`.
+- MUST NOT be thrown if `balance` is equal or greater than `needed` for an `id`.
+- MUST be thrown when `balance` is less than `needed` for an `id`.
 
 #### `ERC1155InvalidApprover(address)`
 
-Indicates a failure with the `_approver` of a token to be approved.
+Indicates a failure with the `approver` of a token to be approved.
 
 ##### Parameters
 
-- `address _approver`: The owner's of the tokens to be approved.
+- `address approver`: The owner's of the tokens to be approved.
 
 Throw when the cause of failure is the owner of the tokens to be approved.
 
@@ -275,11 +275,11 @@ Throw when the cause of failure is the owner of the tokens to be approved.
 
 #### `ERC1155InvalidOperator(address)`
 
-Indicates a failure with the `_operator` to be approved.
+Indicates a failure with the `operator` to be approved.
 
 ##### Parameters
 
-- `address _operator`: The address of who's getting owner's approval.
+- `address operator`: The address of who's getting owner's approval.
 
 Throw when the cause of failure is the spender to be approved.
 
@@ -290,16 +290,16 @@ Throw when the cause of failure is the spender to be approved.
 
 #### `ERC1155InsufficientApproval(address, uint256)`
 
-Indicates a failure with the `_operator`'s approval in a transfer.
+Indicates a failure with the `operator`'s approval in a transfer.
 
 ##### Parameters
 
-- `address _operator`: The address of who's transferring a token.
-- `uint256 _id`: The token to be transferred.
+- `address operator`: The address of who's transferring a token.
+- `uint256 id`: The token to be transferred.
 
 Throw when the cause of failure is the operator's approval.
 
-- MUST be thrown when operator `isApprovedForAll(_owner, _operator, _id)` is false.
+- MUST be thrown when operator `isApprovedForAll(owner, operator, id)` is false.
 
 ### Error additions
 
@@ -350,8 +350,8 @@ Although these errors are considered to be expressive enough, each error's argum
 An example of this is:
 
 ```solidity
-InsufficientApproval(address _spender, uint256 _allowance, uint256 _needed);
-InsufficientApproval(address _operator, uint256 _tokenId);
+InsufficientApproval(address spender, uint256 allowance, uint256 needed);
+InsufficientApproval(address operator, uint256 tokenId);
 ```
 
 For that reason, a domain prefix is proposed to avoid declaration clashing, which is the name of the ERC and its corresponding number appended at the beginning.
@@ -359,8 +359,8 @@ For that reason, a domain prefix is proposed to avoid declaration clashing, whic
 Example:
 
 ```solidity
-ERC20InsufficientApproval(address _spender, uint256 _allowance, uint256 _needed);
-ERC721InsufficientApproval(address _operator, uint256 _tokenId);
+ERC20InsufficientApproval(address spender, uint256 allowance, uint256 needed);
+ERC721InsufficientApproval(address operator, uint256 tokenId);
 ```
 
 ### Arguments
@@ -368,12 +368,12 @@ ERC721InsufficientApproval(address _operator, uint256 _tokenId);
 The selection of arguments depends on the subject involved, and it MUST follow the order presented below:
 
 1. _Who_ is involved with the error (an `address`) - _REQUIRED_
-2. _What_ failed (eg. `uint256 _allowance`) - _OPTIONAL_
-3. _Why_ it failed, expressed in additional arguments (eg. `uint256 _needed`) - _OPTIONAL_
+2. _What_ failed (eg. `uint256 allowance`) - _OPTIONAL_
+3. _Why_ it failed, expressed in additional arguments (eg. `uint256 needed`) - _OPTIONAL_
 
 Consider that sometimes _Who_ is also the _What_, that's why argument 2 is also optional.
 
-Note: Some tokens may need a `_tokenId` or `_id`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
+Note: Some tokens may need a `tokenId` or `id`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
 
 ### Error grammar rules
 
@@ -387,7 +387,7 @@ Where:
 
 - _Domain_: SHOULD be `ERC20`, `ERC721` or `ERC1155`. Although other token standards may be suggested if not considered in this EIP.
 - _ErrorPrefix_: MAY be `Invalid`, `Insufficient`, or another if it's more appropiated.
-- _Actor_: MAY be `Sender`, `Receiver`, `Balance`, `Approver`, `Operator`, `Approval` or another if it's more appropiated, and MUST make adjustments based on domain's naming convention.
+- _Subject_: MAY be `Sender`, `Receiver`, `Balance`, `Approver`, `Operator`, `Approval` or another if it's more appropiated, and MUST make adjustments based on domain's naming convention.
 - _Arguments_: MUST follow the [_who_, _what_ and _why_ order](#arguments).
 
 ## Backwards Compatibility
@@ -421,17 +421,17 @@ pragma solidity ^0.8.4;
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC20Errors {
     /// @notice See [reference](#erc20invalidsender).
-    error ERC20InvalidSender(address _sender);
+    error ERC20InvalidSender(address sender);
     /// @notice See [reference](#erc20invalidreceiver).
-    error ERC20InvalidReceiver(address _receiver);
+    error ERC20InvalidReceiver(address receiver);
     /// @notice See [reference](#erc20insufficientbalance).
-    error ERC20InsufficientBalance(address _sender, uint256 _balance, uint256 _needed);
+    error ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed);
     /// @notice See [reference](#erc20invalidapprover).
-    error ERC20InvalidApprover(address _approver);
+    error ERC20InvalidApprover(address approver);
     /// @notice See [reference](#erc20invalidspender).
-    error ERC20InvalidSpender(address _spender);
+    error ERC20InvalidSpender(address spender);
     /// @notice See [reference](#erc20insufficientallowance).
-    error ERC20InsufficientAllowance(address _spender, uint256 _allowance, uint256 _needed);
+    error ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed);
 }
 
 /// @title Standard ERC721 Errors
@@ -439,17 +439,17 @@ interface ERC20Errors {
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC721Errors {
     /// @notice See [reference](#erc721invalidsender).
-    error ERC721InvalidSender(address _sender);
+    error ERC721InvalidSender(address sender);
     /// @notice See [reference](#erc721invalidreceiver).
-    error ERC721InvalidReceiver(address _receiver);
+    error ERC721InvalidReceiver(address receiver);
     /// @notice See [reference](#erc721invalidowner).
-    error ERC721InvalidOwner(address _sender, uint256 _tokenId);
+    error ERC721InvalidOwner(address sender, uint256 tokenId);
     /// @notice See [reference](#erc721invalidapprover).
-    error ERC721InvalidApprover(address _approver);
+    error ERC721InvalidApprover(address approver);
     /// @notice See [reference](#erc721invalidoperator).
-    error ERC721InvalidOperator(address _operator);
+    error ERC721InvalidOperator(address operator);
     /// @notice See [reference](#erc721insufficientapproval).
-    error ERC721InsufficientApproval(address _operator, uint256 _tokenId);
+    error ERC721InsufficientApproval(address operator, uint256 tokenId);
 }
 
 /// @title Standard ERC1155 Errors
@@ -457,17 +457,17 @@ interface ERC721Errors {
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC1155Errors {
     /// @notice See [reference](#erc1155invalidsender).
-    error ERC1155InvalidSender(address _sender);
+    error ERC1155InvalidSender(address sender);
     /// @notice See [reference](#erc1155invalidreceiver).
-    error ERC1155InvalidReceiver(address _receiver);
+    error ERC1155InvalidReceiver(address receiver);
     /// @notice See [reference](#erc1155insufficientbalance).
-    error ERC1155InsufficientBalance(address _sender, uint256 _balance, uint256 _needed, uint256 _id);
+    error ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id);
     /// @notice See [reference](#erc1155invalidapprover).
-    error ERC1155InvalidApprover(address _approver);
+    error ERC1155InvalidApprover(address approver);
     /// @notice See [reference](#erc1155invalidoperator).
-    error ERC1155InvalidOperator(address _operator);
+    error ERC1155InvalidOperator(address operator);
     /// @notice See [reference](#erc1155insufficientapproval).
-    error ERC1155InsufficientApproval(address _operator, uint256 _id);
+    error ERC1155InsufficientApproval(address operator, uint256 id);
 }
 ```
 

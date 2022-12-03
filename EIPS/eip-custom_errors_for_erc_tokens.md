@@ -35,32 +35,22 @@ The provided interfaces with errors SHOULD conform with the [error grammar rules
 
 This EIP defines standard errors that may be used by implementations in certain scenarios, but does not specify whether implementations should revert in those scenarios, which remains up to the implementers, unless a revert is mandated by the corresponding EIPs.
 
+The names of the error arguments follow the [parameter glossary](#parameter-glossary) section, defining a clear guideline for assigning values to them.
+
 ### [EIP-20](./eip-20.md)
 
 #### `ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed)`
 
-Indicates an error related to the current `balance` of a sender in a transfer.
-
-##### Parameters
-
-- `address sender`: The address of whose tokens are transferred from.
-- `uint256 balance`: The current amount of token the sender has.
-- `uint256 needed`: The amount of token the sender needs to perform the operation.
-
-Used when the cause of failure is the balance of a sender.
+Indicates an error related to the current `balance` of a `sender`.
+Used in transfers.
 
 - MUST be used when `balance` is less than `needed`.
 - MUST NOT be used if `balance` is equal or greater than `needed`.
 
 #### `ERC20InvalidSender(address sender)`
 
-Indicates a failure with the token sender.
-
-##### Parameters
-
-- `address sender`: The address of whose tokens are transferred from.
-
-Used when the cause of failure is the sender in a transfer.
+Indicates a failure with the token `sender`.
+Used in transfers.
 
 - MUST be used for disallowed transfers from the zero address.
 - MUST NOT be used for approval operations.
@@ -69,13 +59,8 @@ Used when the cause of failure is the sender in a transfer.
 
 #### `ERC20InvalidReceiver(address receiver)`
 
-Indicates a failure with the token receiver.
-
-##### Parameters
-
-- `address receiver` The address of whose tokens are transferred to.
-
-Used when the cause of failure is the receiver in a transfer.
+Indicates a failure with the token `receiver`.
+Used in transfers
 
 - MUST be used for disallowed transfers to the zero address.
 - MUST be used for disallowed transfers to non-compatible addresses (eg. contract addresses).
@@ -83,15 +68,8 @@ Used when the cause of failure is the receiver in a transfer.
 
 #### `ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed)`
 
-Indicates a failure with the `spender`'s `allowance` in a transfer.
-
-##### Parameters
-
-- `address spender`: The address of who's spending the tokens.
-- `uint256 allowance`: The current amount of tokens a spender can use.
-- `uint256 needed`: The allowance needed to perform the operation.
-
-Used when the cause of failure is the spender's allowance.
+Indicates a failure with the `spender`'s `allowance`.
+Used in transfers.
 
 - MUST be used when `allowance` is less than `needed`.
 - MUST NOT be used if `allowance` is equal or greater than `needed`.
@@ -99,12 +77,7 @@ Used when the cause of failure is the spender's allowance.
 #### `ERC20InvalidApprover(address approver)`
 
 Indicates a failure with the `approver` of a token to be approved.
-
-##### Parameters
-
-- `address approver`: The owner's of the tokens to be approved.
-
-Used when the cause of failure is the owner of the tokens to be approved.
+Used in approvals.
 
 - MUST be used for disallowed approvals from the zero address.
 - MUST NOT be used for transfer operations.
@@ -112,12 +85,7 @@ Used when the cause of failure is the owner of the tokens to be approved.
 #### `ERC20InvalidSpender(address spender)`
 
 Indicates a failure with the `spender` to be approved.
-
-##### Parameters
-
-- `address spender` The address of who's getting owner's approval.
-
-Used when the cause of failure is the spender to be approved.
+Used in approvals.
 
 - MUST be used for disallowed approvals to the zero address.
 - MUST be used for disallowed approvals to the owner itself.
@@ -129,13 +97,7 @@ Used when the cause of failure is the spender to be approved.
 #### `ERC721InvalidOwner(address sender, uint256 tokenId)`
 
 Indicates an error related to the ownership over a particular token.
-
-##### Parameters
-
-- `address sender`: The address of whose token is transferred from.
-- `uint256 tokenId`: The id of the token to be transferred.
-
-Used when the cause of failure is the ownership of a token.
+Used in transfers.
 
 - MUST be used when `ownerOf(tokenId)` is not `sender`.
 - MUST NOT be used for approval operations.
@@ -143,12 +105,7 @@ Used when the cause of failure is the ownership of a token.
 #### `ERC721InvalidSender(address sender)`
 
 Indicates a failure with the token sender.
-
-##### Parameters
-
-- `address sender`: The address of whose token is transferred from.
-
-Used when the cause of failure is the sender in a transfer.
+Used in transfers.
 
 - MUST be used for disallowed transfers from the zero address.
 - MUST NOT be used for approval operations.
@@ -158,12 +115,7 @@ Used when the cause of failure is the sender in a transfer.
 #### `ERC721InvalidReceiver(address receiver)`
 
 Indicates a failure with the token receiver.
-
-##### Parameters
-
-- `address receiver`: The address of whose token is transferred to.
-
-Used when the cause of failure is the receiver in a transfer.
+Used in transfers.
 
 - MUST be used for disallowed transfers to the zero address.
 - MUST be used for disallowed transfers to non-ERC721TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC721Received`).
@@ -171,14 +123,8 @@ Used when the cause of failure is the receiver in a transfer.
 
 #### `ERC721InsufficientApproval(address operator, uint256 tokenId)`
 
-Indicates a failure with the `operator`'s approval in a transfer.
-
-##### Parameters
-
-- `address operator`: The address of who's transferring a token.
-- `uint256 tokenId`: The token to be transferred.
-
-Used when the cause of failure is the operator's approval.
+Indicates a failure with the `operator`'s approval.
+Used in transfers.
 
 - MUST be used when operator `isApprovedForAll(owner, operator)` is false.
 - MUST be used when operator `getApproved(tokenId)` is not `operator`.
@@ -186,12 +132,7 @@ Used when the cause of failure is the operator's approval.
 #### `ERC721InvalidApprover(address approver)`
 
 Indicates a failure with the `owner` of a token to be approved.
-
-##### Parameters
-
-- `address approver`: The owner's of the token to be approved.
-
-Used when the cause of failure is the owner of the tokens to be approved.
+Used in approvals.
 
 - MUST be used for disallowed approvals from the zero address.
 - MUST NOT be used for transfer operations.
@@ -199,12 +140,7 @@ Used when the cause of failure is the owner of the tokens to be approved.
 #### `ERC721InvalidOperator(address operator)`
 
 Indicates a failure with the `operator` to be approved.
-
-##### Parameters
-
-- `address operator`: The address of who's getting owner's approval.
-
-Used when the cause of failure is the spender to be approved.
+Used in approvals.
 
 - MUST be used for disallowed approvals to the zero address.
 - MUST be used for disallowed approvals to the owner itself.
@@ -215,16 +151,8 @@ Used when the cause of failure is the spender to be approved.
 
 #### `ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id)`
 
-Indicates an error related to the current `balance` of a sender in a transfer.
-
-##### Parameters
-
-- `address sender`: The address of whose tokens are transferred from.
-- `uint256 balance`: The current amount of token the sender has.
-- `uint256 needed`: The amount of token the sender needs to perform the operation.
-- `uint256 id`: The id of the token.
-
-Used when the cause of failure is the balance of a sender.
+Indicates an error related to the current `balance` of a sender.
+Used in transfers.
 
 - MUST be used when `balance` is less than `needed` for an `id`.
 - MUST NOT be used if `balance` is equal or greater than `needed` for an `id`.
@@ -232,12 +160,7 @@ Used when the cause of failure is the balance of a sender.
 #### `ERC1155InvalidSender(address sender)`
 
 Indicates a failure with the token sender.
-
-##### Parameters
-
-- `address sender`: The address of whose tokens are transferred from.
-
-Used when the cause of failure is the sender in a transfer.
+Used in transfers.
 
 - MUST be used for disallowed transfers from the zero address.
 - MUST NOT be used for approval operations.
@@ -247,12 +170,7 @@ Used when the cause of failure is the sender in a transfer.
 #### `ERC1155InvalidReceiver(address receiver)`
 
 Indicates a failure with the token receiver.
-
-##### Parameters
-
-- `address receiver` The address of whose tokens are transferred to.
-
-Used when the cause of failure is the receiver in a transfer.
+Used in transfers.
 
 - MUST be used for disallowed transfers to the zero address.
 - MUST be used for disallowed transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
@@ -261,25 +179,14 @@ Used when the cause of failure is the receiver in a transfer.
 #### `ERC1155InsufficientApproval(address operator, uint256 id)`
 
 Indicates a failure with the `operator`'s approval in a transfer.
-
-##### Parameters
-
-- `address operator`: The address of who's transferring a token.
-- `uint256 id`: The token to be transferred.
-
-Used when the cause of failure is the operator's approval.
+Used in transfers.
 
 - MUST be used when operator `isApprovedForAll(owner, operator, id)` is false.
 
 #### `ERC1155InvalidApprover(address approver)`
 
 Indicates a failure with the `approver` of a token to be approved.
-
-##### Parameters
-
-- `address approver`: The owner's of the tokens to be approved.
-
-Used when the cause of failure is the owner of the tokens to be approved.
+Used in approvals.
 
 - MUST be used for disallowed approvals from the zero address.
 - MUST NOT be used for transfer operations.
@@ -287,17 +194,27 @@ Used when the cause of failure is the owner of the tokens to be approved.
 #### `ERC1155InvalidOperator(address operator)`
 
 Indicates a failure with the `operator` to be approved.
-
-##### Parameters
-
-- `address operator`: The address of who's getting owner's approval.
-
-Used when the cause of failure is the spender to be approved.
+Used in approvals.
 
 - MUST be used for disallowed approvals to the zero address.
 - MUST be used for disallowed approvals to the owner itself.
 - MUST NOT be used for transfer operations.
   - Use `ERC1155InsufficientApproval` instead.
+
+### Parameter Glossary
+
+| Name        | Description                                                                         |
+| ----------- | ----------------------------------------------------------------------------------- |
+| `sender`    | The address of whose token(s) (is/are) transferred from.                            |
+| `balance`   | Current balance for the interacting account.                                        |
+| `needed`    | Amount minimum required to perform an action.                                       |
+| `receiver`  | Address owner of the token(s) transferred.                                          |
+| `spender`   | Address not owner of the token(s) transferred, but allowed to operate on (it/them). |
+| `allowance` | Amount of token(s) a `spender` is allowed to operate with.                          |
+| `approver`  | Owner of the token(s) being approved to an `spender`.                               |
+| `tokenId`   | The identifier number of a token type.                                              |
+| `operator`  | Same as `spender`.                                                                  |
+| `id`        | Same as `tokenId`.                                                                  |
 
 ### Error additions
 

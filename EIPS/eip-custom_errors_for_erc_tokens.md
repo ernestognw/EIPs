@@ -37,6 +37,21 @@ This EIP defines standard errors that may be used by implementations in certain 
 
 ### [EIP-20](./eip-20.md)
 
+#### `ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed)`
+
+Indicates an error related to the current `balance` of a sender in a transfer.
+
+##### Parameters
+
+- `address sender`: The address of whose tokens are transferred from.
+- `uint256 balance`: The current amount of token the sender has.
+- `uint256 needed`: The amount of token the sender needs to perform the operation.
+
+Used when the cause of failure is the balance of a sender.
+
+- MUST be used when `balance` is less than `needed`.
+- MUST NOT be used if `balance` is equal or greater than `needed`.
+
 #### `ERC20InvalidSender(address sender)`
 
 Indicates a failure with the token sender.
@@ -66,20 +81,20 @@ Used when the cause of failure is the receiver in a transfer.
 - MUST be used for disallowed transfers to non-compatible addresses (eg. contract addresses).
 - MUST NOT be used for approval operations.
 
-#### `ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed)`
+#### `ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed)`
 
-Indicates an error related to the current `balance` of a sender in a transfer.
+Indicates a failure with the `spender`'s `allowance` in a transfer.
 
 ##### Parameters
 
-- `address sender`: The address of whose tokens are transferred from.
-- `uint256 balance`: The current amount of token the sender has.
-- `uint256 needed`: The amount of token the sender needs to perform the operation.
+- `address spender`: The address of who's spending the tokens.
+- `uint256 allowance`: The current amount of tokens a spender can use.
+- `uint256 needed`: The allowance needed to perform the operation.
 
-Used when the cause of failure is the balance of a sender.
+Used when the cause of failure is the spender's allowance.
 
-- MUST be used when `balance` is less than `needed`.
-- MUST NOT be used if `balance` is equal or greater than `needed`.
+- MUST be used when `allowance` is less than `needed`.
+- MUST NOT be used if `allowance` is equal or greater than `needed`.
 
 #### `ERC20InvalidApprover(address approver)`
 
@@ -109,22 +124,21 @@ Used when the cause of failure is the spender to be approved.
 - MUST NOT be used for transfer operations.
   - Use `ERC20InsufficientAllowance` instead.
 
-#### `ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed)`
+### [EIP-721](./eip-721.md)
 
-Indicates a failure with the `spender`'s `allowance` in a transfer.
+#### `ERC721InvalidOwner(address sender, uint256 tokenId)`
+
+Indicates an error related to the ownership over a particular token.
 
 ##### Parameters
 
-- `address spender`: The address of who's spending the tokens.
-- `uint256 allowance`: The current amount of tokens a spender can use.
-- `uint256 needed`: The allowance needed to perform the operation.
+- `address sender`: The address of whose token is transferred from.
+- `uint256 tokenId`: The id of the token to be transferred.
 
-Used when the cause of failure is the spender's allowance.
+Used when the cause of failure is the ownership of a token.
 
-- MUST be used when `allowance` is less than `needed`.
-- MUST NOT be used if `allowance` is equal or greater than `needed`.
-
-### [EIP-721](./eip-721.md)
+- MUST be used when `ownerOf(tokenId)` is not `sender`.
+- MUST NOT be used for approval operations.
 
 #### `ERC721InvalidSender(address sender)`
 
@@ -155,19 +169,19 @@ Used when the cause of failure is the receiver in a transfer.
 - MUST be used for disallowed transfers to non-ERC721TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC721Received`).
 - MUST NOT be used for approval operations.
 
-#### `ERC721InvalidOwner(address sender, uint256 tokenId)`
+#### `ERC721InsufficientApproval(address operator, uint256 tokenId)`
 
-Indicates an error related to the ownership over a particular token.
-
-- `address sender`: The address of whose token is transferred from.
-- `uint256 tokenId`: The id of the token to be transferred.
+Indicates a failure with the `operator`'s approval in a transfer.
 
 ##### Parameters
 
-Used when the cause of failure is the ownership of a token.
+- `address operator`: The address of who's transferring a token.
+- `uint256 tokenId`: The token to be transferred.
 
-- MUST be used when `ownerOf(tokenId)` is not `sender`.
-- MUST NOT be used for approval operations.
+Used when the cause of failure is the operator's approval.
+
+- MUST be used when operator `isApprovedForAll(owner, operator)` is false.
+- MUST be used when operator `getApproved(tokenId)` is not `operator`.
 
 #### `ERC721InvalidApprover(address approver)`
 
@@ -197,21 +211,23 @@ Used when the cause of failure is the spender to be approved.
 - MUST NOT be used for transfer operations.
   - Use `ERC721InsufficientApproval` instead.
 
-#### `ERC721InsufficientApproval(address operator, uint256 tokenId)`
+### [EIP-1155](./eip-1155.md)
 
-Indicates a failure with the `operator`'s approval in a transfer.
+#### `ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id)`
+
+Indicates an error related to the current `balance` of a sender in a transfer.
 
 ##### Parameters
 
-- `address operator`: The address of who's transferring a token.
-- `uint256 tokenId`: The token to be transferred.
+- `address sender`: The address of whose tokens are transferred from.
+- `uint256 balance`: The current amount of token the sender has.
+- `uint256 needed`: The amount of token the sender needs to perform the operation.
+- `uint256 id`: The id of the token.
 
-Used when the cause of failure is the operator's approval.
+Used when the cause of failure is the balance of a sender.
 
-- MUST be used when operator `isApprovedForAll(owner, operator)` is false.
-- MUST be used when operator `getApproved(tokenId)` is not `operator`.
-
-### [EIP-1155](./eip-1155.md)
+- MUST be used when `balance` is less than `needed` for an `id`.
+- MUST NOT be used if `balance` is equal or greater than `needed` for an `id`.
 
 #### `ERC1155InvalidSender(address sender)`
 
@@ -242,21 +258,18 @@ Used when the cause of failure is the receiver in a transfer.
 - MUST be used for disallowed transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
 - MUST NOT be used for approval operations.
 
-#### `ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id)`
+#### `ERC1155InsufficientApproval(address operator, uint256 id)`
 
-Indicates an error related to the current `balance` of a sender in a transfer.
+Indicates a failure with the `operator`'s approval in a transfer.
 
 ##### Parameters
 
-- `address sender`: The address of whose tokens are transferred from.
-- `uint256 balance`: The current amount of token the sender has.
-- `uint256 needed`: The amount of token the sender needs to perform the operation.
-- `uint256 id`: The id of the token.
+- `address operator`: The address of who's transferring a token.
+- `uint256 id`: The token to be transferred.
 
-Used when the cause of failure is the balance of a sender.
+Used when the cause of failure is the operator's approval.
 
-- MUST be used when `balance` is less than `needed` for an `id`.
-- MUST NOT be used if `balance` is equal or greater than `needed` for an `id`.
+- MUST be used when operator `isApprovedForAll(owner, operator, id)` is false.
 
 #### `ERC1155InvalidApprover(address approver)`
 
@@ -285,19 +298,6 @@ Used when the cause of failure is the spender to be approved.
 - MUST be used for disallowed approvals to the owner itself.
 - MUST NOT be used for transfer operations.
   - Use `ERC1155InsufficientApproval` instead.
-
-#### `ERC1155InsufficientApproval(address operator, uint256 id)`
-
-Indicates a failure with the `operator`'s approval in a transfer.
-
-##### Parameters
-
-- `address operator`: The address of who's transferring a token.
-- `uint256 id`: The token to be transferred.
-
-Used when the cause of failure is the operator's approval.
-
-- MUST be used when operator `isApprovedForAll(owner, operator, id)` is false.
 
 ### Error additions
 
@@ -418,54 +418,54 @@ pragma solidity ^0.8.4;
 /// @dev See https://eips.ethereum.org/EIPS/eip-20
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC20Errors {
+    /// @notice See [reference](#erc20insufficientbalance).
+    error ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed);
     /// @notice See [reference](#erc20invalidsender).
     error ERC20InvalidSender(address sender);
     /// @notice See [reference](#erc20invalidreceiver).
     error ERC20InvalidReceiver(address receiver);
-    /// @notice See [reference](#erc20insufficientbalance).
-    error ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed);
+    /// @notice See [reference](#erc20insufficientallowance).
+    error ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed);
     /// @notice See [reference](#erc20invalidapprover).
     error ERC20InvalidApprover(address approver);
     /// @notice See [reference](#erc20invalidspender).
     error ERC20InvalidSpender(address spender);
-    /// @notice See [reference](#erc20insufficientallowance).
-    error ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed);
 }
 
 /// @title Standard ERC721 Errors
 /// @dev See https://eips.ethereum.org/EIPS/eip-721
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC721Errors {
+    /// @notice See [reference](#erc721invalidowner).
+    error ERC721InvalidOwner(address sender, uint256 tokenId);
     /// @notice See [reference](#erc721invalidsender).
     error ERC721InvalidSender(address sender);
     /// @notice See [reference](#erc721invalidreceiver).
     error ERC721InvalidReceiver(address receiver);
-    /// @notice See [reference](#erc721invalidowner).
-    error ERC721InvalidOwner(address sender, uint256 tokenId);
+    /// @notice See [reference](#erc721insufficientapproval).
+    error ERC721InsufficientApproval(address operator, uint256 tokenId);
     /// @notice See [reference](#erc721invalidapprover).
     error ERC721InvalidApprover(address approver);
     /// @notice See [reference](#erc721invalidoperator).
     error ERC721InvalidOperator(address operator);
-    /// @notice See [reference](#erc721insufficientapproval).
-    error ERC721InsufficientApproval(address operator, uint256 tokenId);
 }
 
 /// @title Standard ERC1155 Errors
 /// @dev See https://eips.ethereum.org/EIPS/eip-1155
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC1155Errors {
+    /// @notice See [reference](#erc1155insufficientbalance).
+    error ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id);
     /// @notice See [reference](#erc1155invalidsender).
     error ERC1155InvalidSender(address sender);
     /// @notice See [reference](#erc1155invalidreceiver).
     error ERC1155InvalidReceiver(address receiver);
-    /// @notice See [reference](#erc1155insufficientbalance).
-    error ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id);
+    /// @notice See [reference](#erc1155insufficientapproval).
+    error ERC1155InsufficientApproval(address operator, uint256 id);
     /// @notice See [reference](#erc1155invalidapprover).
     error ERC1155InvalidApprover(address approver);
     /// @notice See [reference](#erc1155invalidoperator).
     error ERC1155InvalidOperator(address operator);
-    /// @notice See [reference](#erc1155insufficientapproval).
-    error ERC1155InsufficientApproval(address operator, uint256 id);
 }
 ```
 

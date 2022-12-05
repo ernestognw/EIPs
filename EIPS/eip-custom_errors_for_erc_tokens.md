@@ -97,7 +97,7 @@ Used in approvals.
 Indicates an error related to the ownership over a particular token.
 Used in transfers.
 
-- MUST be used when `ownerOf(tokenId)` is not `sender`.
+- MUST be used when `sender` is not `owner`.
 - MUST NOT be used for approval operations.
 
 #### `ERC721InvalidSender(address sender)`

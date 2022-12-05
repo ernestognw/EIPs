@@ -318,7 +318,7 @@ Where:
 
 ## Backwards Compatibility
 
-<!-- All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their severity. The EIP must explain how the author proposes to deal with these incompatibilities. EIP submissions without a sufficient backwards compatibility treatise may be rejected outright. -->
+Tokens already deployed rely mostly on revert strings and make use of `require` instead of custom errors. Even most of the new deployed tokens since Solidity's v0.8.4 release inherit from implementations using revert strings.
 
 This EIP can not be enforced on non-upgradeable already deployed tokens, however, these tokens generally use similar conventions with small variations such as:
 
@@ -332,8 +332,6 @@ Upgradeable contracts MAY be upgraded to implement this EIP.
 Implementers and DApp developers SHOULD expect these EIP errors to be present on new deployed contracts, but SHOULD handle variation errors for existing contracts, and revert strings that may be returned.
 
 ## Reference Implementation
-
-<!-- An optional section that contains a reference/example implementation that people can use to assist in understanding or implementing this specification. If the implementation is too large to reasonably be included inline, then consider adding it as one or more files in `../assets/eip-####/`. -->
 
 ### Solidity
 

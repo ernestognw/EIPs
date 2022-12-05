@@ -92,7 +92,7 @@ Used in approvals.
 
 ### [EIP-721](./eip-721.md)
 
-#### `ERC721InvalidOwner(address sender, uint256 tokenId)`
+#### `ERC721InvalidOwner(address sender, uint256 tokenId, address owner)`
 
 Indicates an error related to the ownership over a particular token.
 Used in transfers.
@@ -199,6 +199,13 @@ Used in approvals.
 - MUST NOT be used for transfer operations.
   - Use `ERC1155InsufficientApproval` instead.
 
+#### `ERC1155InvalidArrayLength(uint256 idsLength, uint256 valuesLength)`
+
+Indicates an array length mismatch between `_ids` and `_values` in a `safeBatchTransferFrom` operation.
+Used in batch transfers.
+
+- MUST be used only if `idsLength` is different to `valuesLength`
+
 ### Parameter Glossary
 
 | Name        | Description                                                                         |
@@ -211,12 +218,16 @@ Used in approvals.
 | `allowance` | Amount of token(s) a `spender` is allowed to operate with.                          |
 | `approver`  | Owner of the token(s) being approved to an `spender`.                               |
 | `tokenId`   | The identifier number of a token type.                                              |
+| `owner`     | Address of the owner of a token type.                                               |
 | `operator`  | Same as `spender`.                                                                  |
 | `id`        | Same as `tokenId`.                                                                  |
+| `*Length`   | Array length for the prefixed parameter.                                            |
 
 ### Error additions
 
 Any addition to this EIP is considerred a new proposal, but SHOULD follow the guidelines presented in the [rationale](#rationale) section to keep consistency.
+
+Implementation specific errors (such as extensions) SHOULD also follow the same guidelines, although subjects and arguments may vary.
 
 ## Rationale
 
@@ -276,15 +287,17 @@ ERC20InsufficientApproval(address spender, uint256 allowance, uint256 needed);
 ERC721InsufficientApproval(address operator, uint256 tokenId);
 ```
 
+A prefix is also RECOMMENDED for cases when there's
+
 ### Arguments
 
-The selection of arguments depends on the subject involved, and it MUST follow the order presented below:
+The selection of arguments depends on the subject involved, and it SHOULD follow the order presented below:
 
-1. _Who_ is involved with the error (an `address`) - _REQUIRED_
-2. _What_ failed (eg. `uint256 allowance`) - _OPTIONAL_
-3. _Why_ it failed, expressed in additional arguments (eg. `uint256 needed`) - _OPTIONAL_
+1. _Who_ is involved with the error (an `address sender`)
+2. _What_ failed (eg. `uint256 allowance`)
+3. _Why_ it failed, expressed in additional arguments (eg. `uint256 needed`)
 
-Consider that sometimes _Who_ is also the _What_, that's why argument 2 is also optional.
+Consider arguments can overlap (eg. _Who_ is also _What_), so not all of the arguments will be present but the order SHOULD NOT be broken.
 
 Note: Some tokens may need a `tokenId` or `id`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
 
@@ -314,11 +327,9 @@ This EIP can not be enforced on non-upgradeable already deployed tokens, however
 - including similar [subjects](#actions-and-subjects).
 - changing the grammar order.
 
-New deployed contracts MUST use this EIP whenever possible. Errors in extensions are not considered in this EIP and MAY have different subjects.
-
 Upgradeable contracts MAY be upgraded to implement this EIP.
 
-Implementers and DApp developers SHOULD expect these EIP errors to be present on new deployed contracts, but MUST handle variation errors for existing contracts, and revert strings that may be returned.
+Implementers and DApp developers SHOULD expect these EIP errors to be present on new deployed contracts, but SHOULD handle variation errors for existing contracts, and revert strings that may be returned.
 
 ## Reference Implementation
 
@@ -333,17 +344,11 @@ pragma solidity ^0.8.4;
 /// @dev See https://eips.ethereum.org/EIPS/eip-20
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC20Errors {
-    /// @notice See [reference](#erc20insufficientbalance).
     error ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed);
-    /// @notice See [reference](#erc20invalidsender).
     error ERC20InvalidSender(address sender);
-    /// @notice See [reference](#erc20invalidreceiver).
     error ERC20InvalidReceiver(address receiver);
-    /// @notice See [reference](#erc20insufficientallowance).
     error ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed);
-    /// @notice See [reference](#erc20invalidapprover).
     error ERC20InvalidApprover(address approver);
-    /// @notice See [reference](#erc20invalidspender).
     error ERC20InvalidSpender(address spender);
 }
 
@@ -351,17 +356,11 @@ interface ERC20Errors {
 /// @dev See https://eips.ethereum.org/EIPS/eip-721
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC721Errors {
-    /// @notice See [reference](#erc721invalidowner).
-    error ERC721InvalidOwner(address sender, uint256 tokenId);
-    /// @notice See [reference](#erc721invalidsender).
+    error ERC721InvalidOwner(address sender, uint256 tokenId, address owner);
     error ERC721InvalidSender(address sender);
-    /// @notice See [reference](#erc721invalidreceiver).
     error ERC721InvalidReceiver(address receiver);
-    /// @notice See [reference](#erc721insufficientapproval).
     error ERC721InsufficientApproval(address operator, uint256 tokenId);
-    /// @notice See [reference](#erc721invalidapprover).
     error ERC721InvalidApprover(address approver);
-    /// @notice See [reference](#erc721invalidoperator).
     error ERC721InvalidOperator(address operator);
 }
 
@@ -369,18 +368,13 @@ interface ERC721Errors {
 /// @dev See https://eips.ethereum.org/EIPS/eip-1155
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC1155Errors {
-    /// @notice See [reference](#erc1155insufficientbalance).
     error ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id);
-    /// @notice See [reference](#erc1155invalidsender).
     error ERC1155InvalidSender(address sender);
-    /// @notice See [reference](#erc1155invalidreceiver).
     error ERC1155InvalidReceiver(address receiver);
-    /// @notice See [reference](#erc1155insufficientapproval).
     error ERC1155InsufficientApproval(address operator, uint256 id);
-    /// @notice See [reference](#erc1155invalidapprover).
     error ERC1155InvalidApprover(address approver);
-    /// @notice See [reference](#erc1155invalidoperator).
     error ERC1155InvalidOperator(address operator);
+    error ERC1155InvalidArrayLength(uint256 idsLength, uint256 valuesLength);
 }
 ```
 

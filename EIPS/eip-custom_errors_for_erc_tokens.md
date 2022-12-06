@@ -297,7 +297,7 @@ The selection of arguments depends on the subject involved, and it SHOULD follow
 2. _What_ failed (eg. `uint256 allowance`)
 3. _Why_ it failed, expressed in additional arguments (eg. `uint256 needed`)
 
-Consider arguments can overlap (eg. _Who_ is also _What_), so not all of the arguments will be present but the order SHOULD NOT be broken.
+A particular argument may fall in overlapping categories (eg. _Who_ may also be _What_), so not all of these will be present but the order SHOULD NOT be broken.
 
 Note: Some tokens may need a `tokenId` or `id`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
 

@@ -201,7 +201,7 @@ Used in approvals.
 
 #### `ERC1155InvalidArrayLength(uint256 idsLength, uint256 valuesLength)`
 
-Indicates an array length mismatch between `_ids` and `_values` in a `safeBatchTransferFrom` operation.
+Indicates an array length mismatch between `ids` and `values` in a `safeBatchTransferFrom` operation.
 Used in batch transfers.
 
 - MUST be used only if `idsLength` is different to `valuesLength`

@@ -58,7 +58,7 @@ Used in transfers.
 #### `ERC20InvalidReceiver(address receiver)`
 
 Indicates a failure with the token `receiver`.
-Used in transfers
+Used in transfers.
 
 - MUST be used for disallowed transfers to the zero address.
 - MUST be used for disallowed transfers to non-compatible addresses (eg. contract addresses).

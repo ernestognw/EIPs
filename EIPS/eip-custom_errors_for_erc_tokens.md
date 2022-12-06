@@ -276,7 +276,7 @@ ERC721InsufficientApproval(address operator, uint256 tokenId);
 
 The selection of arguments depends on the subject involved, and it should follow the order presented below:
 
-1. _Who_ is involved with the error (an `address sender`)
+1. _Who_ is involved with the error (eg. `address sender`)
 2. _What_ failed (eg. `uint256 allowance`)
 3. _Why_ it failed, expressed in additional arguments (eg. `uint256 needed`)
 

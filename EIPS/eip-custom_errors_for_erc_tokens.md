@@ -147,13 +147,13 @@ Used in approvals.
 
 ### [EIP-1155](./eip-1155.md)
 
-#### `ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id)`
+#### `ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 tokenId)`
 
 Indicates an error related to the current `balance` of a sender.
 Used in transfers.
 
-- MUST be used when `balance` is less than `needed` for an `id`.
-- MUST NOT be used if `balance` is equal or greater than `needed` for an `id`.
+- MUST be used when `balance` is less than `needed` for a `tokenId`.
+- MUST NOT be used if `balance` is equal or greater than `needed` for an `tokenId`.
 
 #### `ERC1155InvalidSender(address sender)`
 
@@ -174,12 +174,12 @@ Used in transfers.
 - MUST be used for disallowed transfers to non-ERC1155TokenReceiver contracts or those that reject a transfer. (eg. returning an invalid response in `onERC1155Received`).
 - MUST NOT be used for approval operations.
 
-#### `ERC1155InsufficientApproval(address operator, uint256 id)`
+#### `ERC1155InsufficientApproval(address operator, uint256 tokenId)`
 
 Indicates a failure with the `operator`'s approval in a transfer.
 Used in transfers.
 
-- MUST be used when operator `isApprovedForAll(owner, operator, id)` is false.
+- MUST be used when operator `isApprovedForAll(owner, operator, tokenId)` is false.
 
 #### `ERC1155InvalidApprover(address approver)`
 
@@ -217,10 +217,9 @@ Used in batch transfers.
 | `spender`   | Address that may be allowed to operate on tokens without being their owner. |
 | `allowance` | Amount of tokens a `spender` is allowed to operate with.                    |
 | `approver`  | Address initiating an approval operation.                                   |
-| `tokenId`   | The identifier number of a token type.                                      |
-| `owner`     | Address of the owner of a token type.                                       |
+| `tokenId`   | The identifier number of a token.                                           |
+| `owner`     | Address of the owner of a token.                                            |
 | `operator`  | Same as `spender`.                                                          |
-| `id`        | Same as `tokenId`.                                                          |
 | `*Length`   | Array length for the prefixed parameter.                                    |
 
 ### Error additions
@@ -244,21 +243,9 @@ The main actions that can be performed within a token are:
 
 The subjects outlined above are expected to exhaustively represent _what_ can go wrong in a token transaction, deriving a specific error by adding an [error prefix](#error-prefixes).
 
-Note that `Token` or `TokenID` MUST NOT be a subject for the following reasons:
+Note that the action is never seen as the subject of an error. Additionally the token itself is not seen as the subject of an error but rather the context in which it happens, as identified in the domain.
 
-1. The [Domain](#domain) is explicit enough to identify it as a token error.
-2. Although `TokenID` may identify an error, the token itself SHOULD NOT the root of the error, but can be additional information.
-
-Consider that, in practice, some of the subjects in a contract might be called different while they represent the same. These are listed below:
-
-- **Balance**: Represents the access to a certain amount of tokens for an address.
-  - EIP-721: Instead of _balance_, an address is _owner_ of a token.
-- **Approval**: Represents a permission granted to an operator.
-  - EIP-20: Instead of _approval_, an operator has _allowance_.
-- **Operator**: Represents an address that has received approval over third-party tokens.
-  - EIP-20: Instead of _operator_, an address with allowance is an _spender_.
-
-If a subject is called different on a particular token standard, the error MUST be consistent with the standard's naming convention.
+If a subject is called different on a particular token standard, the error should be consistent with the standard's naming convention.
 
 ### Error prefixes
 
@@ -289,19 +276,19 @@ ERC721InsufficientApproval(address operator, uint256 tokenId);
 
 ### Arguments
 
-The selection of arguments depends on the subject involved, and it SHOULD follow the order presented below:
+The selection of arguments depends on the subject involved, and it should follow the order presented below:
 
 1. _Who_ is involved with the error (an `address sender`)
 2. _What_ failed (eg. `uint256 allowance`)
 3. _Why_ it failed, expressed in additional arguments (eg. `uint256 needed`)
 
-A particular argument may fall in overlapping categories (eg. _Who_ may also be _What_), so not all of these will be present but the order SHOULD NOT be broken.
+A particular argument may fall in overlapping categories (eg. _Who_ may also be _What_), so not all of these will be present but the order shouldn't be broken.
 
-Note: Some tokens may need a `tokenId` or `id`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
+Note: Some tokens may need a `tokenId`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
 
 ### Error grammar rules
 
-Given the above, we can summarize the construction of error names with a grammar that errors MUST follow:
+Given the above, we can summarize the construction of error names with a grammar that errors will follow:
 
 ```
 <Domain><ErrorPrefix><Subject>(<Arguments>);
@@ -309,10 +296,10 @@ Given the above, we can summarize the construction of error names with a grammar
 
 Where:
 
-- _Domain_: SHOULD be `ERC20`, `ERC721` or `ERC1155`. Although other token standards may be suggested if not considered in this EIP.
-- _ErrorPrefix_: MAY be `Invalid`, `Insufficient`, or another if it's more appropiated.
-- _Subject_: MAY be `Sender`, `Receiver`, `Balance`, `Approver`, `Operator`, `Approval` or another if it's more appropiated, and MUST make adjustments based on domain's naming convention.
-- _Arguments_: MUST follow the [_who_, _what_ and _why_ order](#arguments).
+- _Domain_: `ERC20`, `ERC721` or `ERC1155`. Although other token standards may be suggested if not considered in this EIP.
+- _ErrorPrefix_: `Invalid`, `Insufficient`, or another if it's more appropiated.
+- _Subject_: `Sender`, `Receiver`, `Balance`, `Approver`, `Operator`, `Approval` or another if it's more appropiated, and must make adjustments based on domain's naming convention.
+- _Arguments_: Follow the [_who_, _what_ and _why_ order](#arguments).
 
 ## Backwards Compatibility
 
@@ -364,10 +351,10 @@ interface ERC721Errors {
 /// @dev See https://eips.ethereum.org/EIPS/eip-1155
 ///  https://eips.ethereum.org/EIPS/eip-[assignedEIPNumber]
 interface ERC1155Errors {
-    error ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 id);
+    error ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 tokenId);
     error ERC1155InvalidSender(address sender);
     error ERC1155InvalidReceiver(address receiver);
-    error ERC1155InsufficientApproval(address operator, uint256 id);
+    error ERC1155InsufficientApproval(address operator, uint256 tokenId);
     error ERC1155InvalidApprover(address approver);
     error ERC1155InvalidOperator(address operator);
     error ERC1155InvalidArrayLength(uint256 idsLength, uint256 valuesLength);

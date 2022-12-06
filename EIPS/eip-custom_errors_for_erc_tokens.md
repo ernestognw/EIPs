@@ -215,7 +215,7 @@ Used in batch transfers.
 | `needed`    | Minimum amount required to perform an action.                                       |
 | `receiver`  | Address owner of the token(s) transferred.                                          |
 | `spender`   | Address that may be allowed to operate on tokens without being their owner.         |
-| `allowance` | Amount of token(s) a `spender` is allowed to operate with.                          |
+| `allowance` | Amount of tokens a `spender` is allowed to operate with.                            |
 | `approver`  | Owner of the token(s) being approved to an `spender`.                               |
 | `tokenId`   | The identifier number of a token type.                                              |
 | `owner`     | Address of the owner of a token type.                                               |

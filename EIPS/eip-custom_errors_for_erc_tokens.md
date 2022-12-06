@@ -287,8 +287,6 @@ ERC20InsufficientApproval(address spender, uint256 allowance, uint256 needed);
 ERC721InsufficientApproval(address operator, uint256 tokenId);
 ```
 
-A prefix is also RECOMMENDED for cases when there's
-
 ### Arguments
 
 The selection of arguments depends on the subject involved, and it SHOULD follow the order presented below:

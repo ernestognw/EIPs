@@ -29,7 +29,7 @@ An error specification will allow users to expect more consistent error messages
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-The provided interfaces with errors SHOULD conform with the [error grammar rules](#error-grammar-rules) described in the [rationale](#rationale) section.
+The following errors were designed according to the criteria described in [Rationale](#rationale).
 
 This EIP defines standard errors that may be used by implementations in certain scenarios, but does not specify whether implementations should revert in those scenarios, which remains up to the implementers, unless a revert is mandated by the corresponding EIPs.
 

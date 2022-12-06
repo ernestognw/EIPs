@@ -213,7 +213,7 @@ Used in batch transfers.
 | `sender`    | Address whose tokens are being transferred.                                         |
 | `balance`   | Current balance for the interacting account.                                        |
 | `needed`    | Minimum amount required to perform an action.                                       |
-| `receiver`  | Address owner of the token(s) transferred.                                          |
+| `receiver`  | Address to which tokens are being transferred.                                      |
 | `spender`   | Address that may be allowed to operate on tokens without being their owner.         |
 | `allowance` | Amount of tokens a `spender` is allowed to operate with.                            |
 | `approver`  | Owner of the token(s) being approved to an `spender`.                               |

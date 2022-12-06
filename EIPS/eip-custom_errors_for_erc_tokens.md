@@ -239,7 +239,7 @@ Considering this, the error names are designed following a basic grammatical str
 
 The main actions that can be performed within a token are:
 
-- **Transfer**: An operation in which a _sender_ moves any form of _balance_ to a _receiver_.
+- **Transfer**: An operation in which a _sender_ moves to a _receiver_ any number of tokens (fungible _balance_ and/or non-fungible _token ids_).
 - **Approval**: An operation in which an _approver_ grants any form of _approval_ to an _operator_.
 
 Whose subjects outlined are expected to be exhaustive to represent _what_ can go wrong in a transaction, which can be shown as an error by adding a [failure prefix](#error-prefixes).

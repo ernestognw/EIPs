@@ -217,8 +217,8 @@ Used in batch transfers.
 | `spender`   | Address that may be allowed to operate on tokens without being their owner. |
 | `allowance` | Amount of tokens a `spender` is allowed to operate with.                    |
 | `approver`  | Address initiating an approval operation.                                   |
-| `tokenId`   | The identifier number of a token.                                           |
-| `owner`     | Address of the owner of a token.                                            |
+| `tokenId`   | Identifier number of a token.                                               |
+| `owner`     | Address of the current owner of a token.                                    |
 | `operator`  | Same as `spender`.                                                          |
 | `*Length`   | Array length for the prefixed parameter.                                    |
 

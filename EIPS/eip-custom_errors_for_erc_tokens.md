@@ -282,7 +282,7 @@ The selection of arguments depends on the subject involved, and it should follow
 
 A particular argument may fall in overlapping categories (eg. _Who_ may also be _What_), so not all of these will be present but the order shouldn't be broken.
 
-Note: Some tokens may need a `tokenId`. This is suggested to include at the end as additional information, according to the [subjects notes](#actions-and-subjects)
+Some tokens may need a `tokenId`. This is suggested to include at the end as additional information instead of as a subject.
 
 ### Error grammar rules
 

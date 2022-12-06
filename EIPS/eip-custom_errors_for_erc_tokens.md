@@ -329,7 +329,7 @@ This EIP can not be enforced on non-upgradeable already deployed tokens, however
 
 Upgradeable contracts MAY be upgraded to implement this EIP.
 
-Implementers and DApp developers SHOULD expect these EIP errors to be present on new deployed contracts, but SHOULD handle variation errors for existing contracts, and revert strings that may be returned.
+Implementers and DApp developers that implement special support for tokens that are compliant with this EIP, SHOULD tolerate different errors emitted by non-compliant contracts, as well as classic revert strings.
 
 ## Reference Implementation
 

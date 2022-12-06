@@ -224,9 +224,7 @@ Used in batch transfers.
 
 ### Error additions
 
-Any addition to this EIP is considerred a new proposal, but SHOULD follow the guidelines presented in the [rationale](#rationale) section to keep consistency.
-
-Implementation specific errors (such as extensions) SHOULD also follow the same guidelines, although subjects and arguments may vary.
+Any addition to this EIP or implementation-specific errors (such as extensions) SHOULD follow the guidelines presented in the [rationale](#rationale) section to keep consistency.
 
 ## Rationale
 

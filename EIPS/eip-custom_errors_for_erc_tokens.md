@@ -269,7 +269,7 @@ A prefix can be `Invalid` for general incorrectness, or more specific like `Insu
 
 ### Domain
 
-Although these errors are considered to be expressive enough, each error's arguments may vary depending on the token domain, causing a `DeclarationError` if there are errors with the same name and different arguments.
+Each error's arguments may vary depending on the token domain. If there are errors with the same name and different arguments, the Solidity compiler currently fails with a `DeclarationError`.
 
 An example of this is:
 

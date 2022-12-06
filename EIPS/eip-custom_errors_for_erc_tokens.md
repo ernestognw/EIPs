@@ -13,7 +13,7 @@ created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
 
 ## Abstract
 
-The following specification allows for the use of a standard list of Solidity custom errors to be used by [EIP-20](./eip-20.md), [EIP-721](./eip-721.md) and [EIP-1155](./eip-1155.md) tokens.
+This EIP defines a standard set of Solidity custom errors to be used by [EIP-20](./eip-20.md), [EIP-721](./eip-721.md), and [EIP-1155](./eip-1155.md) tokens.
 
 Ethereum applications (DApps) and wallets have historically relied on revert reason strings to show the cause of transaction errors to users. More recent Solidity versions offer rich revert reasons that require error-specific decoding. This EIP defines a standard set of errors designed to give at least the same relevant information as revert reason strings, but in a structured and expected way that clients can implement decoding for.
 

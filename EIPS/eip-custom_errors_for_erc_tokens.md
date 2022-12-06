@@ -231,9 +231,9 @@ Implementation specific errors (such as extensions) SHOULD also follow the same 
 
 ## Rationale
 
-The objectives of creating a standard for token errors are to provide context about the error, while keeping gramatical sense, and making a moderated use of meaningful arguments.
+The chosen objectives for a standard for token errors are to provide context about the error, and to make moderate use of meaningful arguments (to maintain the code size benefits with respect to strings).
 
-Considering the outlined above, the errors are designed based on the standard actions that can be performed on each token, and the [subjects](#actions-and-subjects) involved.
+Considering this, the error names are designed following a basic grammatical structure based on the standard actions that can be performed on each token and the [subjects](#actions-and-subjects) involved.
 
 ### Actions and subjects
 

@@ -210,7 +210,7 @@ Used in batch transfers.
 
 | Name        | Description                                                                         |
 | ----------- | ----------------------------------------------------------------------------------- |
-| `sender`    | The address of whose token(s) (is/are) transferred from.                            |
+| `sender`    | Address whose tokens are being transferred.                                         |
 | `balance`   | Current balance for the interacting account.                                        |
 | `needed`    | Amount minimum required to perform an action.                                       |
 | `receiver`  | Address owner of the token(s) transferred.                                          |

@@ -33,7 +33,7 @@ The following errors were designed according to the criteria described in [Ratio
 
 This EIP defines standard errors that may be used by implementations in certain scenarios, but does not specify whether implementations should revert in those scenarios, which remains up to the implementers, unless a revert is mandated by the corresponding EIPs.
 
-The names of the error arguments follow the [parameter glossary](#parameter-glossary) section, defining a clear guideline for assigning values to them.
+The names of the error arguments are defined in the [Parameter Glossary](#parameter-glossary), and MUST be used according to those definitions.
 
 ### [EIP-20](./eip-20.md)
 

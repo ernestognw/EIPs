@@ -262,7 +262,7 @@ If a subject is called different on a particular token standard, the error MUST 
 
 ### Error prefixes
 
-An error prefix is what complements a subject, so it can be read as an error.
+An error prefix is added to a subject to derive a concrete error condition.
 Developers can think about an error prefix as the _why_ an error happened.
 
 A prefix can be `Invalid` for general incorrectness, or more specific like `Insufficient` for amounts.

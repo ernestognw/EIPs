@@ -214,7 +214,7 @@ Used in batch transfers.
 | `balance`   | Current balance for the interacting account.                                        |
 | `needed`    | Minimum amount required to perform an action.                                       |
 | `receiver`  | Address owner of the token(s) transferred.                                          |
-| `spender`   | Address not owner of the token(s) transferred, but allowed to operate on (it/them). |
+| `spender`   | Address that may be allowed to operate on tokens without being their owner.         |
 | `allowance` | Amount of token(s) a `spender` is allowed to operate with.                          |
 | `approver`  | Owner of the token(s) being approved to an `spender`.                               |
 | `tokenId`   | The identifier number of a token type.                                              |
